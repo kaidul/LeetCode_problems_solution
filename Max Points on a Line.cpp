@@ -16,38 +16,37 @@ public:
         if (points.size() <= 1) {
             return points.size();
         }
-        unordered_map<double, int> slopePointNumMap;
+
+        unordered_map<double, int> Map;
         int result = 0;
+        
         for (unsigned i = 0; i < points.size(); i++) {
-            slopePointNumMap.clear();
- 
+            Map.clear();
             Point anchorPoint = points[i];
             int samePointCount = 0;
-            int anchorPointMaxSameLinePointCount = 1;
+            int Max = 1;
+            
             for (unsigned j = i + 1; j < points.size(); j++) {
                 Point currentPoint = points[j];
-                int currentPointMaxSameLinePointCount = 0;
                 //same point should be count in every line
-                if (anchorPoint.x == currentPoint.x && anchorPoint.y == currentPoint.y){
+                if (anchorPoint.x == currentPoint.x && anchorPoint.y == currentPoint.y) {
+                    // slop 0
                     samePointCount++;
                 } else {//not same point
                     double slope = std::numeric_limits<double>::infinity();
-                    if (anchorPoint.x != currentPoint.x){//avoid divide 0 error
+                    if (anchorPoint.x != currentPoint.x) {//avoid divide 0 error
                         slope = (double)(anchorPoint.y - currentPoint.y) / (anchorPoint.x - currentPoint.x);
                     }
-                    if (slopePointNumMap.find(slope) == slopePointNumMap.end()){//slope first appear
-                        slopePointNumMap[slope] = 1;
+                    if (Map.find(slope) == Map.end()) { //slope first appear
+                        Map[slope] = 1;
                     }
-                    slopePointNumMap[slope]++;
-                    int currentLinePointCount = slopePointNumMap[slope];
-                    if (currentLinePointCount > anchorPointMaxSameLinePointCount){
-                        anchorPointMaxSameLinePointCount = currentLinePointCount;
-                    }
+                    Map[slope]++;
+                    Max = max(Max, Map[slope]);
                 }
             }
-            if (anchorPointMaxSameLinePointCount + samePointCount > result) {
-                result = anchorPointMaxSameLinePointCount + samePointCount;
-            }
+
+            int curr = Max + samePointCount;
+            result = max(result, curr);
         }
         return result;
     }
