@@ -13,7 +13,7 @@ public:
     int maxPoints(vector<Point> &points) {
         //key is slope, value is the number of points in the line of a given slope
         //this map will be reused
-        if (points.size() <= 1){
+        if (points.size() <= 1) {
             return points.size();
         }
         unordered_map<double, int> slopePointNumMap;
