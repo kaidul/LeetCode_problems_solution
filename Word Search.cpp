@@ -37,7 +37,6 @@ public:
         
         return false;
     }
-    
     bool exist(vector<vector<char> > &board, string word) {
         for(int i = 0; i < board.size(); ++i) {
             for(int j = 0; j < board[i].size(); ++j) {
