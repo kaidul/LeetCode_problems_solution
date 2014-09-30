@@ -7,14 +7,10 @@ public:
         }
         result.push_back(solution);
 
-        int prev = numeric_limits<int>::max();
         for(int i = idx; i < S.size(); ++i) {
-            if(S[i] != prev) {
-                solution.push_back(S[i]);
-                subsetsUtils(i + 1, S, solution, result);
-                solution.pop_back();
-                prev = S[i];
-            }
+            solution.push_back(S[i]);
+            subsetsUtils(i + 1, S, solution, result);
+            solution.pop_back();
         }
     }
     vector<vector<int> > subsets(vector<int> &S) {
