@@ -8,7 +8,7 @@ int main(void) {
     struct dirent *ent;
     if ((dir = opendir (directoryPath)) != NULL) {
         while ((ent = readdir (dir)) != NULL) {
-            char filename[1000];
+            char filename[260];
             for(int i = 0; i < strlen(ent->d_name); ++i) {
                 if(ent->d_name[i] == ' ')
                     filename[i] = '_';
