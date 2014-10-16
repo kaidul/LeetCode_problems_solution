@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findMin(int left, int right, vector<int> &num) {
+        if(left > right) return INT_MAX;
+        if(left == right) return num[left];
+        int mid = left + (right - left) / 2;
+        if(num[left] > num[right]) {
+            if(num[mid] >= num[left]) {
+                return findMin(mid + 1, right, num);
+            } else {
+                return min(findMin(mid, right, num), findMin(left, mid - 1, num));
+            }
+        } else {
+             return num[left];
+        }
+    }
+    int findMin(vector<int> &num) {
+        return findMin(0, num.size() - 1, num);
+        
+    }
+};
