@@ -34,7 +34,7 @@ public:
                     samePointCount++;
                 } else {//not same point
                     double slope = std::numeric_limits<double>::infinity();
-                    if (anchorPoint.x != currentPoint.x) {//avoid divide 0 error
+                    if (anchorPoint.x != currentPoint.x) { //avoid divide 0 error
                         slope = (double)(anchorPoint.y - currentPoint.y) / (anchorPoint.x - currentPoint.x);
                     }
                     if (Map.find(slope) == Map.end()) { //slope first appear

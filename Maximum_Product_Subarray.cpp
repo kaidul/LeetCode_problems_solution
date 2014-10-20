@@ -9,7 +9,7 @@ public:
                 pos = 0;
                 neg = 0;
             } else if (A[i] > 0) {
-                pos = max(1, pos) * A[i];
+                pos = max(A[i], pos * A[i]);
                 neg *= A[i];
             } else {
                 int tmp = pos;

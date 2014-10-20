@@ -2,7 +2,7 @@ class Solution {
 public:
     bool wordBreak(string s, unordered_set<string> &dict) {
         //return wordBreakHelper(s, dict, 0);
-        // dp[i] = true if string 0...i can be formed with dictionary words
+        // dp[i] = true if string 0...(i - 1) can be formed with dictionary words
         bool dp[s.length() + 1];
         memset(dp, false, sizeof dp);
         dp[0] = true;

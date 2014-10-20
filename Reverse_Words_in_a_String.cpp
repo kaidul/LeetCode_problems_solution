@@ -13,7 +13,8 @@ public:
         s = "";
         string pop;
         while(!words.empty()) {
-            pop = words.top(), words.pop();
+            pop = words.top();
+            words.pop();
             s += pop + " ";
         }
         if(!s.empty()) s.erase(s.length() - 1, 1);
