@@ -6,8 +6,7 @@ public:
         for (int i = 0; i <= SIZE; i++) {
             minCuts[i] = i - 1;
         }
-        vector<bool> temp(SIZE + 1, false);
-        vector<vector<bool> > isPalFast(SIZE + 1, temp);
+        vector<vector<bool> > isPalFast(SIZE + 1, vector<bool>(SIZE + 1, false));
 
         for (int j = 2; j <= SIZE; j++) {
             for (int i = 1; i <= j; i++) {

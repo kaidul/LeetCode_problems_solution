@@ -6,6 +6,36 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+ class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(!head) return head;
+        ListNode *slow = head;
+        ListNode *fast = head;
+        
+        while(fast and fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if(fast == slow) {
+                break;
+            }
+        }
+        
+        if(!fast or !fast->next)
+            return nullptr;
+
+        slow = head;
+        while(slow != fast) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        
+        return fast;
+    }
+};
+
+// with extra space
+/*
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
@@ -14,13 +44,12 @@ public:
         // ListNode *prev = NULL;
         while(head) {
             if(visited[head]) {
-                // return prev;
                 return head;
             }
             visited[head] = true;
-            // prev = head;
             head = head->next;
         }
         return NULL;
     }
 };
+*/

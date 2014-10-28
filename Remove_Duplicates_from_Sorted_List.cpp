@@ -6,6 +6,25 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+ class Solution {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+        if (!head or !head->next) {
+            return head;
+        }
+        ListNode* iter = head;
+        while (iter->next) {
+            if (iter->next->val == iter->val) {
+                iter->next = iter->next->next;
+            } else {
+                iter = iter->next;
+            }
+        }
+        return head;
+    }
+};
+ // with extra space
+ /*
 class Solution {
 public:
     ListNode *deleteDuplicates(ListNode *head) {
@@ -29,3 +48,4 @@ public:
         return head;
     }
 };
+*/

@@ -10,20 +10,20 @@
 class Solution {
 public:
     int minDepth(TreeNode* root) {
-        if (root == NULL) {
+        if (!root) {
             return 0;
         }
         
-        if (root->left != NULL and root->right != NULL) {
+        if (root->left and root->right) {
             int left = 1 + minDepth(root->left);
             int right = 1 + minDepth(root->right);
-            return left < right ? left : right; 
+            return min(left, right);
         }
         
-        if (root->left != NULL) {
+        if (root->left) {
             return 1 + minDepth(root->left);
         }
-        if (root->right != NULL) {
+        if (root->right) {
             return 1 + minDepth(root->right);
         }
         return 1; // both NULL

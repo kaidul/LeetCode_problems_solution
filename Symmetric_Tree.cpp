@@ -48,7 +48,6 @@ public:
             
             if(curr->right) q.push(make_pair(curr->right, curr_level + 1));
             else q.push(make_pair(dummy, curr_level + 1));
-            
         }
         return true;
     }

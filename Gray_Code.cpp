@@ -1,7 +1,7 @@
 class Solution {
 public:
     unsigned int binary2gray(unsigned int bi) {
-        return (bi>>1)^bi;
+        return (bi >> 1)^bi;
     }
     vector<int> grayCode(int n) {
         vector<int> res;

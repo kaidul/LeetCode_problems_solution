@@ -8,7 +8,7 @@ public:
         return false;
     }
     void permuteUniqueUtils(int idx, vector<int> &num, vector<vector<int> > &result) {
-        if(idx == num.size()) {
+        if(idx == num.size() - 1) {
             result.push_back(num);
             return;
         }

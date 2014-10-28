@@ -25,6 +25,7 @@ public:
         if(!boundary) return head;
         iter = boundary->next;
         ListNode *prev = boundary;
+
         while(iter) {
             if(iter->val < x) {
                 prev->next = iter->next;
@@ -38,6 +39,7 @@ public:
                 iter = iter->next;
             }
         }
+        
         if(head != boundary) return head;
         return sentinel->next;
     }

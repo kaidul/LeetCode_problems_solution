@@ -2,7 +2,7 @@ class Solution {
 public:
     // no extra space
     void permuteUtils(int idx, vector<int> &num, vector<vector<int> > &result) {
-        if(idx == num.size()) {
+        if(idx == num.size() - 1) {
             result.push_back(num);
             return;
         }
@@ -14,7 +14,7 @@ public:
     }
     
     // with extra space
-    void permute(vector<int> &container, vector<bool> visited, vector<int> &num, vector<vector<int> > &result) {
+    void permute(vector<int> &container, vector<bool> &visited, vector<int> &num, vector<vector<int> > &result) {
         if(container.size() == num.size()) {
             result.push_back(container);
             return;

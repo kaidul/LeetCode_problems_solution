@@ -14,14 +14,14 @@ public:
         if (!root->left and !root->right) {
             cur = cur * 10 + root->val;
             res += cur;
-        } else {
-            cur = cur * 10 + root->val;
-            if (root->left) {
-                dfs(root->left, cur, res);
-            }
-            if (root->right) {
-                dfs(root->right, cur, res);
-            }
+            return;
+        }
+        cur = cur * 10 + root->val;
+        if (root->left) {
+            dfs(root->left, cur, res);
+        }
+        if (root->right) {
+            dfs(root->right, cur, res);
         }
     }
     

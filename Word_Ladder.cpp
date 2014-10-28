@@ -30,7 +30,7 @@ public:
         int Min = numeric_limits<int>::max();
         for(unordered_set <string>::iterator it = dict.begin(); it != dict.end(); ++it) {
             if(!visited[*it]) {
-                if(isNextState(curr, *it)) {
+                if(isNextState(curr, *it)) { 
                     visited[*it] = true;
                     Min = min(ladderLengthUtils(end, *it, depth + 1, dict, visited), Min);
                     visited[*it] = false;
@@ -106,6 +106,7 @@ public:
                 return 2;
         }
         unordered_map <string, bool> visited;
+
         /* DFS - TLE
         int ret = ladderLengthUtils(end, start, 1, dict, visited);
         if(ret == numeric_limits<int>::max())

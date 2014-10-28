@@ -17,8 +17,8 @@ public:
             return;
         }
         for (int i = start; i < s.size(); i++) {            
-            if ( isPalindrome(s, start, i) ) {
-                r.push_back(s. substr(start, i - start + 1));
+            if(isPalindrome(s, start, i) ) {
+                r.push_back(s.substr(start, i - start + 1));
                 partitionUtils(s, i + 1, r, res);        
                 r.pop_back();
             }
@@ -29,6 +29,6 @@ public:
         vector<vector<string> > res;
         vector<string> r;
         partitionUtils(s, 0, r, res);
-        return res;    
+        return res;
     }
 };

@@ -12,7 +12,7 @@ public:
     int nQueen(int queen, int &count, int n, int *arr) {
         for(int row = 1; row <= n; ++row) {
             if(isPlace(queen, row, arr)) {
-                arr[queen] = row;
+                arr[queen] = row; // arr[i] = j means there is a queen in jth row and ith column
                 if(queen == n) ++count;
                 else nQueen(queen + 1, count, n, arr);
             }
