@@ -2,7 +2,7 @@ class Solution {
 public:
     // the commented lines are for finding maximum elements
     int findMin(int left, int right, vector<int> &num) {
-        if(left > right) return INT_MAX;
+        if(left > right) return INT_MAX/* -INT_MAX */;
         if(left == right) return num[left];
         int mid = left + (right - left) / 2;
         if(num[left] > num[right]) {
