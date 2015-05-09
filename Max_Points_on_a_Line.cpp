@@ -7,7 +7,6 @@
  *     Point(int a, int b) : x(a), y(b) {}
  * };
  */
- // http://zhaohongze.com/wordpress/2013/12/09/leetcode-max-points-on-a-line/
 class Solution {
 public:
     int maxPoints(vector<Point> &points) {

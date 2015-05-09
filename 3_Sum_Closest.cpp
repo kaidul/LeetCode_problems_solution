@@ -5,7 +5,7 @@ public:
         if(num.empty()) return 0;
         
         sort(num.begin(), num.end());
-        int min= INT_MAX;
+        int min= INT_MAX; // int min = numeric_limit<int>::max();
         int record;
         
         for(int i = 0, n = num.size(); i < n - 2; i++) {

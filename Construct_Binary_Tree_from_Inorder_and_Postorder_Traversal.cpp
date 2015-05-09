@@ -12,15 +12,15 @@ public:
     TreeNode *treeBuilder(vector<int> &inorder, vector<int> &postorder, int start, int end, int indx) {    
             if (start > end) return NULL;
             TreeNode *curr_root = new TreeNode(postorder[indx]);
-            int mid;
+            int rootIndx;
             for (int i = start; i <= end; i++) {
                 if (inorder[i] == curr_root->val) { 
-                    mid = i;
+                    rootIndx = i;
                     break;
                 }
             }
-            curr_root->right = treeBuilder(inorder, postorder, mid + 1, end , indx - 1);
-            curr_root->left = treeBuilder(inorder, postorder, start, mid - 1, indx - 1 - end + mid);
+            curr_root->right = treeBuilder(inorder, postorder, rootIndx + 1, end , indx - 1);
+            curr_root->left = treeBuilder(inorder, postorder, start, rootIndx - 1, indx - 1 - end + rootIndx);
             return curr_root;
     }
  

@@ -6,6 +6,9 @@ public:
         if(num[left] < num[right]) return num[left];
         
         int mid = left + (right - left) / 2;
+        if(num[left] == num[mid] and num[mid] == num[right]) {
+            return min(findMin(left, mid, num), findMin(mid + 1, right, num));
+        }
         if(num[mid] > num[right]) {
             return findMin(mid + 1, right, num);
         } else {

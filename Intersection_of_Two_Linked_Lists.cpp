@@ -40,8 +40,8 @@ public:
         ListNode *na = headA, *nb = headB;
 
         // O(n + m)
-        traverseAndRedirect(na,nb,headA,headB); 
-        traverseAndRedirect(na,nb,headA,headB);
+        traverseAndRedirect(na, nb, headA, headB); 
+        traverseAndRedirect(na, nb, headA, headB);
  
         while (na && nb && na != nb) {
             na = na->next;

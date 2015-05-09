@@ -1,6 +1,7 @@
 class Solution {
 public:
     /*
+    // wrong algorithm
     int lengthOfLongestSubstring(string s) {
         int n = s.length();
         if(n < 2) return n;
@@ -14,7 +15,7 @@ public:
         return dp[0][n - 1];
     }
     */
-    /* TLE
+    /* wrong algorithm (also TLE)
     int lengthOfLongestSubstring(string s) {
         int n = s.length();
         if(n < 2) return n;

@@ -30,6 +30,7 @@ public:
             if(fast) fast = fast->next;
         }
         ListNode *middle = slow;
+        // gotcha
         if(tail) tail->next = nullptr;
         if(head == middle) head = nullptr;
         

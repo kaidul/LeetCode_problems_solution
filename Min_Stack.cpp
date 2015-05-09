@@ -27,7 +27,7 @@ private:
         bool empty() const {
             return head == nullptr;
         }
-        int size() const {
+        size_t size() const {
             return elements;
         }
         int top() const {
