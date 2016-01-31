@@ -10,11 +10,10 @@ public:
         Step 4: Reverse A[k + 1] to the end.
     */
     void nextPermutation(vector<int> &num) {
-        int sz = num.size();
         int k = -1;
         int l;
         //step1
-        for (int i = sz - 1; i > 0; --i) {
+        for (int i = num.size() - 1; i > 0; --i) {
             if (num[i - 1] < num[i]) {
                 k = i - 1;
                 break;
@@ -26,7 +25,7 @@ public:
         }
 
         //step2
-        for (int i = sz - 1; i > k; --i) {
+        for (int i = num.size() - 1; i > k; --i) {
             if (num[i] > num[k]) {
                 l = i;
                 break;

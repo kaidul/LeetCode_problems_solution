@@ -67,6 +67,6 @@ public:
         
         // Expexcted O(n)
         int left = 0, right = nums.size() - 1;
-        return SelectionRank(nums, 0, nums.size() - 1, k - 1);
+        return SelectionRank(nums, left, right, k - 1);
     }
 };

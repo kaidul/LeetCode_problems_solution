@@ -1,24 +1,20 @@
 class Solution {
 public:
-	//  Explanation: http://yucoding.blogspot.com/2013/01/leetcode-question-50-median-of-two.html
-    double findKth(int A[], int m, int B[], int n, int k) {
-
-        if (m > n) return findKth(B, n, A, m, k);
-        if (m == 0) return B[k - 1];
-        if (k == 1) return min(A[0], B[0]);
-
-        int aMid = min(k / 2, m);
+    double findMedianSortedArrays(vector<int>& nums1, int i, vector<int>& nums2, int j, int k) {
+        if(((int)nums1.size() - i) > ((int)nums2.size() - j))
+            return findMedianSortedArrays(nums2, j, nums1, i, k);
+        if(i >= (int) nums1.size()) return nums2[j + k - 1];
+        if(k == 1) return min(nums1[i], nums2[j]);
+        int aMid = min(k / 2, (int)nums1.size() - i);
         int bMid = k - aMid;
-
-        if (A[aMid - 1] <= B[bMid - 1]) {
-            return findKth(A + aMid, m - aMid, B, n, k - aMid);
-        }
-        return findKth(A, m, B + bMid, n - bMid, k - bMid);
+        if(nums1[i + aMid - 1] <= nums2[j + bMid - 1])
+            return findMedianSortedArrays(nums1, i + aMid, nums2, j, k - aMid);
+        return findMedianSortedArrays(nums1, i, nums2, j + bMid, k - bMid);
     }
-
-    double findMedianSortedArrays(int A[], int m, int B[], int n) {
-        int total = m + n;
-        if(total & 1) return findKth(A, m, B, n, total / 2 + 1);
-        return (findKth(A, m, B, n, total / 2) + findKth(A, m, B, n, total / 2 + 1)) / 2;
+    
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int total = nums1.size() + nums2.size();
+        if(total & 1) return findMedianSortedArrays(nums1, 0, nums2, 0, total / 2 + 1);
+        return (findMedianSortedArrays(nums1, 0, nums2, 0, total / 2) + findMedianSortedArrays(nums1, 0, nums2, 0, total / 2 + 1)) / 2;
     }
 };

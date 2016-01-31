@@ -8,17 +8,26 @@
  */
 class Solution {
 public:
-    ListNode *removeNthFromEnd(ListNode *head, int n) {
-        if(!head or n == 0) return head;
-        int count = 0;
-        ListNode *iter = head, *removed = head, *prev = nullptr;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head || n == 0) return head;
+        int cnt = 0;
+        ListNode* iter = head;
+        ListNode* removed = head;
+        ListNode* prev = nullptr;
         while(iter) {
-            count++;
-            if(count > n) { prev = removed; removed = removed->next; } 
+            cnt++;
+            if(cnt > n) {
+                prev = removed;
+                removed = removed->next;
+            }
             iter = iter->next;
         }
-        if(prev) prev->next = removed->next;
-        else {removed = removed->next; head = removed;}
+        if(prev) {
+            prev->next = removed->next;
+        } else {
+            removed = removed->next;
+            head = removed;
+        }
         return head;
     }
 };
