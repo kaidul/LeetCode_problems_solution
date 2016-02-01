@@ -1,31 +1,28 @@
 class Solution {
 public:
-    int lowerbound(vector<int>& v, int val) {
-        int st = 0;
-        int en = v.size() - 1;
-        int idx, cnt, stp;
-        cnt = en - st;
-        while(cnt > 0) {
-            stp = cnt >> 1; idx = st + stp;
-            if(v[idx] < val) st = ++idx, cnt -= stp+1;
-            else cnt = stp;
+    int lowerBound(int left, int right, const int value, vector<int> const& container) {
+        if(left >= right) {
+            return left;
         }
-        return st;
-    }
- 
-    int upperbound(vector<int>& v, int val) {
-        int st = 0;
-        int en = v.size() - 1;
-        int idx, cnt, stp;
-        cnt = en - st;
-        while(cnt > 0) {
-            stp = cnt >> 1; idx = st + stp;
-            if(v[idx] <= val) st = ++idx, cnt -= stp+1;
-            else cnt = stp;
+        int mid = left + (right - left) / 2;
+        if(value <= container[mid]) {
+            return lowerBound(left, mid, value, container);
+        } else if (value > container[mid]) {
+            return lowerBound(mid + 1, right, value, container);
         }
-        return st;
     }
-
+    
+    int upperBound(int left, int right, const int value, vector<int> const& container) {
+        if(left >= right) {
+            return left;
+        }
+        int mid = left + (right - left) / 2;
+        if(value < container[mid]) {
+            return upperBound(left, mid, value, container);
+        } else if(value >= container[mid]) {
+            return upperBound(mid + 1, right, value, container);
+        }
+    }
 
     int shortestDistance(vector<string>& words, string word1, string word2) {
         vector<vector<int> > pos(2, vector<int>());
@@ -47,9 +44,9 @@ public:
         }
         int ans = INT_MAX;
         for(int i = 0; i < n; ++i) {
-            int upper = upperbound(pos[1], pos[0][i]);
+            int upper = upperBound(0, pos[1].size() - 1, pos[0][i], pos[1]);
             ans = min(ans, abs(pos[1][upper] - pos[0][i]));
-            int lower = lowerbound(pos[1], pos[0][i]);
+            int lower = lowerBound(0, pos[1].size() - 1, pos[0][i], pos[1]);
             if(lower > 0) {
                 ans = min(ans, abs(pos[1][lower - 1] - pos[0][i]));
             }
