@@ -7,6 +7,8 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+ /* AC
 class Solution {
 public:
 
@@ -26,5 +28,18 @@ public:
         int prev = numeric_limits<int>::min();
         isValidBSTUtils(root, prev, result);
         return result;
+    }
+};
+*/
+
+class Solution {
+    bool isValidBSTRecur(TreeNode* root, long min, long max) {
+        if(!root) return true;
+        if(!(root->val > min && root->val < max)) return false;
+        return (isValidBSTRecur(root->left, min, root->val) && isValidBSTRecur(root->right, root->val, max));
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        return isValidBSTRecur(root, numeric_limits<long>::min(), numeric_limits<long>::max());
     }
 };
