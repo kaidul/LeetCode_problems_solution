@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findMin(int left, int right, vector<int> &num) {
-        if(left > right) return INT_MAX;
+        // if(left > right) return INT_MAX;
         if(left == right) return num[left];
         if(num[left] < num[right]) return num[left];
         

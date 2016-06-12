@@ -36,6 +36,7 @@ public:
         */
 
         // recursively
+        /*
         ListNode *iter = head;
         int cnt = 0;
         while(iter) {
@@ -46,5 +47,18 @@ public:
         ListNode *head2 = head;
         reverseListRecur(head2, head, cnt);
         return head;
+        */
+
+        // O(n) without extra space :)
+        if(!head or !head->next) return head;
+        ListNode* curr = head;
+        ListNode* prev = nullptr;
+        while(curr) {
+            ListNode* nxt = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        return prev;
     }
 };

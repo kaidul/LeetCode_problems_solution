@@ -36,7 +36,7 @@ public:
 
     // Top down DP - Accepted
     /*
-    int isInterleaveRecurDPUtils(vector <vector <int> > &dp, string s1, string s2, string s3, int k = 0, int i = 0, int j = 0) {
+    int isInterleaveRecurDPUtils(vector <vector <int> > &dp, string const& s1, string const& s2, string const& s3, int k = 0, int i = 0, int j = 0) {
         if(k == s3.length()) {
             return 1;
         }

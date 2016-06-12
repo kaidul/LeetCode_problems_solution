@@ -30,6 +30,14 @@ public:
         if(candidates.size() < 0) return result;
         sort(candidates.begin(), candidates.end());
         combinationSum2Utils(0, target, candidates, solution, result);
+#if 0
+        for_each(result.begin(), result.end(), [](vector<int>& solution) {
+                                                    for_each(solution.begin(), solution.end(), [](int item) {
+                                                        cout << item << " ";
+                                                    });
+                                                    cout << endl; 
+        });
+#endif
         return result;
     }
 };

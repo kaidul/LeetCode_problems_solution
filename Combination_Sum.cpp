@@ -25,7 +25,7 @@ public:
     vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
         vector<vector<int> > result;
         vector<int> solution;
-        if(candidates.size() < 0) return result;
+        if(candidates.empty()) return result;
         sort(candidates.begin(), candidates.end());
         combinationSumUtils(0, target, candidates, solution, result);
         return result;

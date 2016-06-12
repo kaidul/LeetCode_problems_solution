@@ -1,6 +1,29 @@
 class Solution {
 public:
     void wiggleSort(vector<int>& nums) {
+        if(nums.empty()) return;
+        int n = nums.size();
+        int flag = 1;
+        for(int i = 0; i < n - 1; ++i) {
+            if(flag) {
+                if(nums[i] > nums[i + 1]) {
+                    swap(nums[i], nums[i + 1]);
+                }
+                flag ^= 1;
+            } else {
+                if(nums[i] < nums[i + 1]) {
+                    swap(nums[i], nums[i + 1]);
+                }
+                flag ^= 1;
+            }
+        }
+    }
+};
+// with extra space\
+/*
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
         int n = nums.size();
         if(n == 0) return;
         sort(nums.begin(), nums.end());
@@ -18,3 +41,4 @@ public:
         }
     }
 };
+*/

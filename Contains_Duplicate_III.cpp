@@ -8,7 +8,7 @@ public:
             int X = nums[i];
             int offset = i + 1;
             for(int j = offset; j <= min(offset + k, n - 1); ++j) {
-                int Y = nums[offset + j];
+                int Y = nums[j];
                 if(abs(X - Y) <= t) {
                     return true;
                 }
@@ -46,7 +46,7 @@ public:
                 return true;
             }
             if(upperBound != window.begin()) {
-                --upperBound;
+                --upperBound; // lowerbound
                 if(curr - *upperBound <= t) {
                     return true;
                 }

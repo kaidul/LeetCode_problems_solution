@@ -18,6 +18,7 @@ public:
                 elem += to_string(nums[i - 1]);
             } else {
                 elem = elem.substr(0, elem.size() - 2);
+                // elem.erase(elem.size() - 3, 2);
             }
             result.push_back(elem);
 
