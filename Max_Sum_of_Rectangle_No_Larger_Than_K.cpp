@@ -8,14 +8,12 @@ class Solution {
         int cumSum = 0;
         int maxSum = INT_MIN;
         set<int> cumSet;
+        cumSet.insert(0);
         for(int i = 0; i < n; ++i) {
             cumSum += arr[i];
             set<int>::iterator it = cumSet.upper_bound(cumSum - k - 1);
             if(it != cumSet.end()) {
                 maxSum = max(maxSum, cumSum - *it);
-            }
-            if(cumSum <= k) {
-                maxSum = max(maxSum, cumSum);
             }
             cumSet.insert(cumSum);
         }
@@ -36,7 +34,7 @@ public:
                 for(int i = 0; i < m; ++i) {
                     tmp[i] += matrix[i][right];
                 }
-                int sum = kadane(tmp, k);
+                int sum = subarraySum(tmp, k);
                 result = max(result, sum);
             }
         }

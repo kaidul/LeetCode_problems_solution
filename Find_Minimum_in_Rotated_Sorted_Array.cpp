@@ -16,3 +16,19 @@ public:
         return findMin(0, num.size() - 1, num);
     }
 };
+
+// iterative
+int Solution::findMin(const vector<int> &arr) {
+    int n = arr.size();
+    int left = 0, right = n - 1;
+    while(left <= right) {
+        if(arr[left] <= arr[right]) return arr[left];
+        int mid = left + (right - left) / 2;
+        if(arr[mid] > arr[right]) {
+            left = mid + 1;
+        } else if(arr[mid] < arr[right]) {
+            right = mid;
+        }
+    }
+    return -1;
+}

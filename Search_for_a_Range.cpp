@@ -1,7 +1,8 @@
 class Solution {
 public:
-    vector<int> searchRange(int A[], int n, int target) {
+    vector<int> searchRange(vector<int>& A, int target) {
         vector<int> result;
+        int n = A.size();
         if(n == 0) {
             result.push_back(-1);
             result.push_back(-1);
@@ -10,8 +11,8 @@ public:
 
         // finding lower bound
         int mid, start = 0, end = n - 1;
-        int x, y;
-        while(start < end) {
+        int x = -1, y = -1;
+        while(start <= end) {
             mid = start + (end - start) / 2;
             if(A[mid] < target) start = mid + 1;
             else if(A[mid] > target) end = mid - 1;
@@ -23,12 +24,11 @@ public:
                 end = mid - 1;
             }
         }
-        if(start >= end) x = A[start] == target ? start : -1;
         
 
         // finding upper bound
         start = 0, end = n - 1;
-        while(start < end) {
+        while(start <= end) {
             mid = start + (end - start) / 2;
             if(A[mid] < target) start = mid + 1;
             else if(A[mid] > target) end = mid - 1;
@@ -40,7 +40,6 @@ public:
                 start = mid + 1;
             }
         }
-        if(start >= end) y = A[start] == target ? start : -1;
         
         
         result.push_back(x);
