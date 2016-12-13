@@ -87,6 +87,7 @@ class Solution {
     
     void findShortestPaths(string node, int indx, unordered_map<string, unordered_set<string>>& parents, vector<string>& solution, vector<vector<string>>& result) {
         if(parents[node].find(node) != parents[node].end()) {
+            assert(indx == 0);
             solution[indx] = node;
             result.push_back(solution);
             return;

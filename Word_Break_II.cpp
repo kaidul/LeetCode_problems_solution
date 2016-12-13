@@ -2,15 +2,14 @@ class Solution {
 public:
 
     void wordBreakUtils(string s, unordered_set<string> &dict, string solution, vector<string> &result) {
-        if(s.length() == 0) {
+        if(s.empty()) {
             solution.erase(solution.length() - 1, 1);
             result.push_back(solution);
             return;
         }
         for(auto it = dict.begin(); it != dict.end(); ++it) {
             int len = (*it).length();
-            if(len > s.length()) continue;
-            if(s.substr(0, len) == *it) {
+            if(len <= s.length() and s.substr(0, len) == *it) {
                 wordBreakUtils(s.substr(len, s.length() - len), dict, solution + (*it) + " ", result);
             }
         }

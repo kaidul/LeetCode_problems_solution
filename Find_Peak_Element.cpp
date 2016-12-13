@@ -1,4 +1,3 @@
-
 // linear time
 /*
 class Solution {
@@ -20,7 +19,7 @@ public:
     int findPeakElement(const vector<int> &num) {
         int n = num.size();
         int left = 0, right = n - 1;
-        while(left < right) {
+        while(left <= right) {
             int mid = left + (right - left) / 2;
             if((mid == 0 or num[mid] > num[mid - 1]) and (mid == n - 1 or num[mid] > num[mid + 1])) {
                 return mid;
@@ -32,6 +31,6 @@ public:
                 }
             }
         }
-        return left;
+        return -1; // the program won't hit this line
     }
 };

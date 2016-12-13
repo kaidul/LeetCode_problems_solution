@@ -1,7 +1,7 @@
 class Solution {
 public:
     TreeNode* sortedArrayToBST(vector<int> &arr, int start, int end) {
-        if (start > end) return NULL;
+        if (start > end) return nullptr;
         int mid = start + (end - start) / 2;
         TreeNode *node = new TreeNode(arr[mid]);
         node->left = sortedArrayToBST(arr, start, mid - 1);

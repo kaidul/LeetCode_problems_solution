@@ -2,8 +2,7 @@ class Solution {
 public:
     int countPrimes(int n) {
         if(n < 3) return 0;
-        bool primes[n + 1];
-        for(int i = 0; i < n; i++) primes[i] = true; 
+        vector<bool> primes(n, true);
         int sqrtN = sqrt(n);
         for(int i = 3; i <= sqrtN; i += 2) {
             if(primes[i]) {

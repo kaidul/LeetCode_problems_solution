@@ -4,8 +4,7 @@ class Solution {
             return 0;
         }
         int& ret = dp[left][right];
-        if(ret != -1) return ret;
-        ret = INT_MAX;
+        if(ret != INT_MAX) return ret;
         for(int x = left; x <= right; ++x) {
             ret = min(ret, x + max(getMoneyAmountDp(left, x - 1, dp), getMoneyAmountDp(x + 1, right, dp)));
         }
@@ -38,7 +37,7 @@ public:
         return dp[1][n];
         
         // top-down
-        // vector<vector<int>> dp(n + 1, vector<int>(n + 1, -1));
+        // vector<vector<int>> dp(n + 1, vector<int>(n + 1, INT_MAX));
         // return getMoneyAmountDp(1, n, dp);
     }
 };

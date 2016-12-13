@@ -9,21 +9,21 @@
  */
 class Solution {
 public:
-    void build(TreeNode *root, vector<vector<int> > &res, vector<int> &sol, int sum, int s) {
-      if(!root->left and !root->right and (s + root->val) == sum) {
-          sol.push_back(root->val);
-          res.push_back(sol);
-          sol.pop_back();
+    void build(TreeNode *root, vector<vector<int> > &result, vector<int> &solution, int sum) {
+        if(!root) return;
+        if(!root->left and !root->right) {
+          if(root->val == sum) {
+            solution.push_back(root->val);
+            result.push_back(solution);
+            solution.pop_back();
+          }
           return;
-      }
-      
-      s += root->val;
-      sol.push_back(root->val);
-      
-      if(root->left) build(root->left, res, sol, sum, s);
-      if(root->right) build(root->right, res, sol, sum, s);
-      
-      sol.pop_back();
+        }
+        
+        solution.push_back(root->val);
+        if(root->left) build(root->left, result, solution, sum - root->val);
+        if(root->right) build(root->right, result, solution, sum - root->val);
+        solution.pop_back();
     }
     
     vector<vector<int> > pathSum(TreeNode *root, int sum) {
@@ -31,7 +31,7 @@ public:
         if(!root) return res;
         
         vector<int> sol;
-        build(root, res, sol, sum, 0);
+        build(root, res, sol, sum);
         
         return res;
         

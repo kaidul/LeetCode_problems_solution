@@ -11,7 +11,7 @@ public:
         }
         if(start >= end) {
             if(A[start] < target) return start + 1;
-            else return start;
+            return start;
         }
         return mid;
     }

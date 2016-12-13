@@ -52,13 +52,13 @@ public:
         // O(n) without extra space :)
         if(!head or !head->next) return head;
         ListNode* curr = head;
-        ListNode* prev = nullptr;
+        ListNode* newHead = nullptr;
         while(curr) {
             ListNode* nxt = curr->next;
             curr->next = prev;
-            prev = curr;
+            newHead = curr;
             curr = nxt;
         }
-        return prev;
+        return newHead;
     }
 };

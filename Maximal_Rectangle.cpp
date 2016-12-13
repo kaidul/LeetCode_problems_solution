@@ -21,8 +21,7 @@ public:
                     Max = max(Max, item);
                     for(int k = i + 1, l = 2; k < row; k++, l++) {
                         if(dp[k][j]) {
-                            if(dp[k][j] < item)
-                                item = dp[k][j];
+                            item = min(dp[k][j], item);
                             Max = max(Max, item * l);
                         } else {
                             break;

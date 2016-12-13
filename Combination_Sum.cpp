@@ -2,23 +2,18 @@ class Solution {
 public:
 
     void combinationSumUtils(int indx, int sum, vector<int> &candidates, vector<int> &solution, vector<vector<int> > &result) {
-        if(indx == candidates.size()) {
-            if(sum == 0) result.push_back(solution);
-            return;
-        }
         if(sum == 0) {
             result.push_back(solution);
             return;
         }
+        if(sum < 0) {
+            return;
+        }
         for(int i = indx; i < candidates.size(); ++i) {
-            if(sum - candidates[i] >= 0) {
-                solution.push_back(candidates[i]);
-                combinationSumUtils(i, sum - candidates[i], candidates, solution, result);
-                solution.pop_back();
-            } else {
-                break;
-                // return;
-            }
+            if(candidates[i] > sum) { break; }
+            solution.push_back(candidates[i]);
+            combinationSumUtils(i, sum - candidates[i], candidates, solution, result);
+            solution.pop_back();
         }
     }
 

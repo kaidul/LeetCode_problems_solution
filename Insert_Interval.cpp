@@ -13,9 +13,6 @@ public:
         if (it == intervals.end()) { 
             intervals.insert(it, newInterval);
         }
-         
-         
-        if (intervals.empty()) return result;
            
         result.push_back(*intervals.begin());
         for (it = intervals.begin() + 1; it != intervals.end(); it++) {

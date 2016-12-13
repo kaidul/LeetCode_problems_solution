@@ -39,7 +39,6 @@ public:
                 maxHeap.push(minHeap.top());
                 minHeap.pop();
             }
-            cout << maxHeap.top() << " " << minHeap.top() << endl;
             currMedian = (maxHeap.top() + minHeap.top()) / 2.0;
             break;
         default:

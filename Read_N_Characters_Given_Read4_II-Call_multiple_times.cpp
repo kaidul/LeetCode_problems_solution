@@ -12,7 +12,7 @@ public:
     int read(char *buf, int n) {
         int cnt = 0;
         char* buf4 = new char[4];
-        while(true) {
+        while(cnt < n) {
             int len = read4(buf4);
             for(int i = 0; i < len; ++i) {
                 Q.push(buf4[i]);
@@ -22,7 +22,7 @@ public:
                 buf[cnt++] = Q.front();
                 Q.pop();
             }
-            if(len == 0) {
+            if(len < 4) {
                 break;
             }
         }

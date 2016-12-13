@@ -12,3 +12,13 @@ public:
         return convertToTitle(n / 26) + convertToTitle(n % 26);
     }
 };
+
+// iterative
+string convertToTitle(int n) {
+    string ans;
+    while (n-- != 0) {
+        ans = char(int('A') + n % 26) + ans;
+        n /= 26;
+    }
+    return ans;
+}

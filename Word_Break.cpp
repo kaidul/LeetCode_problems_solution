@@ -7,13 +7,14 @@ public:
         memset(dp, false, sizeof dp);
         dp[0] = true;
         for(int i = 0, n = s.length(); i < n; ++i) {
-            if(!dp[i]) continue;
-            for(unordered_set<string>::iterator it = dict.begin(); it != dict.end(); ++it) {
-                int len = (*it).length();
-                int end = i + len;
-                if(end > s.length()) continue;
-                if(dp[end]) continue;
-                if(s.substr(i, len) == *it) dp[end] = true; 
+            if(dp[i]) {
+                for(unordered_set<string>::iterator it = dict.begin(); it != dict.end(); ++it) {
+                    int len = (*it).length();
+                    int end = i + len;
+                    if(end <= s.length() and !dp[end] and s.substr(i, len) == *it) {
+                        dp[end] = true;
+                    } 
+                }
             }
         }
         return dp[s.length()];
@@ -44,8 +45,7 @@ public:
         for(unordered_set<string>::iterator it = dict.begin(); it != dict.end(); ++it) {
             int len = (*it).length();
             int end = start + len;
-            if(end > s.length()) continue;
-            if(s.substr(start, len) == *it) {
+            if(end <= s.length() and s.substr(start, len) == *it) {
                 if(wordBreakHelper(s, dict, end)) return true;
             }
         }

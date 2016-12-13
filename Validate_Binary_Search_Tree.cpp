@@ -8,6 +8,27 @@
  * };
  */
 
+/*
+// With extra space (AC)
+ class Solution {
+    void isValidBSTRecur(TreeNode* root, vector<int>& inorder) {
+        if(!root) return;
+        isValidBSTRecur(root->left, inorder);
+        inorder.push_back(root->val);
+        isValidBSTRecur(root->right, inorder);
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        vector<int> inorder;
+        isValidBSTRecur(root, inorder);
+        for(int i = 1; i < (int)inorder.size(); ++i) {
+            if(inorder[i] <= inorder[i - 1]) return false;
+        }
+        return true;
+    }
+};
+*/
+
  /* AC
 class Solution {
 public:

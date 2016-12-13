@@ -8,10 +8,16 @@
  * };
  */
 class Solution {
+    int maxHeight(TreeNode* root) {
+        if(!root) return 0;
+        return 1 + max(maxHeight(root->left), maxHeight(root->right));
+    }
 public:
     vector<vector<int> > levelOrderBottom(TreeNode *root) {
         vector < vector<int> > result;
         if(!root) return result;
+        int height = maxHeight(root);
+        result.resize(height);
         queue < pair <TreeNode*, int> > Q;
         int prev_level = 0, curr_level;
         Q.push(make_pair(root, 1));
@@ -23,7 +29,7 @@ public:
             curr_level = node.second;
             if(curr_level > prev_level) {
                 if(container.size() > 0) {
-                    result.push_back(container);
+                    result[--height] = container;
                 }
                 container.clear();
             }
@@ -34,8 +40,7 @@ public:
             
             prev_level = curr_level;
         }
-        if(container.size() > 0) result.push_back(container);
-        reverse(result.begin(), result.end());
+        if(container.size() > 0) result[--height] = container;
         
         return result;
     }

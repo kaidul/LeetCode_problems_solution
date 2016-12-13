@@ -15,11 +15,10 @@ public:
         int n = nums.size();
         int i = 0;
         while(i < n) {
-            if(nums[i] != i + 1 and nums[i] >= 1 and nums[i] <= n and nums[nums[i] - 1] != nums[i]) {
-                swap(nums[i], nums[nums[i] -1]);
-            } else {
-                ++i;
+            while(nums[i] != i + 1 and nums[i] >= 1 and nums[i] <= n and nums[nums[i] - 1] != nums[i]) {
+                swap(nums[i], nums[nums[i] - 1]);
             }
+            ++i;
         }
         for(int i = 0; i < n; ++i) {
             if(nums[i] != i + 1) {

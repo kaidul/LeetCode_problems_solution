@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
@@ -10,22 +10,10 @@
 class Solution {
 public:
     int minDepth(TreeNode* root) {
-        if (!root) {
-            return 0;
-        }
-        
-        if (root->left and root->right) {
-            int left = 1 + minDepth(root->left);
-            int right = 1 + minDepth(root->right);
-            return min(left, right);
-        }
-        
-        if (root->left) {
-            return 1 + minDepth(root->left);
-        }
-        if (root->right) {
-            return 1 + minDepth(root->right);
-        }
-        return 1; // both NULL
+        if(!root) return 0;
+        if(!root->left and !root->right) return 1;
+        if(!root->left) return 1 + minDepth(root->right);
+        if(!root->right) return 1 + minDepth(root->left);
+        return 1 + min(minDepth(root->left), minDepth(root->right));
     }
 };

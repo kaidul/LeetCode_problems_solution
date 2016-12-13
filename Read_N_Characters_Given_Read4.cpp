@@ -14,9 +14,8 @@ public:
         while(cnt < n) {
             int len = read4(buf4);
             for(int i = 0; i < min(len, n - cnt); ++i) {
-                buf[cnt + i] = buf4[i];
+                buf[cnt++] = buf4[i];
             }
-            cnt += min(len, n - cnt);
             if(len < 4) {
                 break;
             }
