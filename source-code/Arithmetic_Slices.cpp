@@ -24,7 +24,7 @@ public:
     int numberOfArithmeticSlices(vector<int>& arr) {
         int n = arr.size();
         if(n < 3) return 0;
-        vector<int> dp(n, 0);
+        vector<int> dp(n, 0); // dp[i] = number of arithmatic slices ended at i
         if(arr[2] - arr[1] == arr[1] - arr[0]) {
             dp[2] = 1;
         }
