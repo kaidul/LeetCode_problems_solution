@@ -6,7 +6,6 @@
 + [3 Sum Smaller](source-code/3_Sum_Smaller.cpp)
 + [4 Sum](source-code/4_Sum.cpp)
 + [4 Sum II](source-code/4_Sum_II.cpp)
-+ [a](source-code/a.out)
 + [Add and Search Word Data structure design](source-code/Add_and_Search_Word_Data_structure_design.cpp)
 + [Add digits](source-code/Add_digits.cpp)
 + [Add Strings](source-code/Add_Strings.cpp)
