@@ -14,7 +14,7 @@ public:
     	for(int i = 0; i < n; i++) {
     		int L = i * avg - sum[i]; // dress required in left side
     		int R = (n - i - 1) * avg - (sum[n] - sum[i + 1]);
-    		if(L > 0 and R > 0) {
+    		if(L > 0 and R > 0) { // both left and right side lack dresses
     			result = max(result, abs(L) + abs(R));
     		} else {
     			result = max(result, max(abs(L), abs(R)));
