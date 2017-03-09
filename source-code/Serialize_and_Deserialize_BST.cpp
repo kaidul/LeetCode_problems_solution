@@ -7,6 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// Any serialize-deserialize technique working for BT will work for BST because BST is a BT but may not the other way around
 class Codec {
     void preorder(TreeNode* root, string& data) {
         if(!root) return;
