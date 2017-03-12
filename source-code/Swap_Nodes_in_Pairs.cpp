@@ -8,19 +8,19 @@
  */
 class Solution {
 public:
-    ListNode *swapPairs(ListNode *head) {
-        if(!head or !(head->next)) return head;
-        ListNode *iter = head;
-        ListNode *prev = nullptr;
+    ListNode* swapPairs(ListNode* head) {
+        if(!head || !head->next) return head;
+        ListNode* iter = head;
+        ListNode* prev = nullptr;
         while(iter) {
             if(iter->next) {
-                ListNode *tmp = iter->next;
-                if(tmp == head->next) head = tmp;
-                iter->next = tmp->next;
-                tmp->next = iter;
-                if(prev) prev->next = tmp;
+                ListNode* next2 = iter->next->next;
+                iter->next->next = iter;
+                if(iter == head) head = iter->next;
+                if(prev) prev->next = iter->next;
+                iter->next = next2;
+                prev = iter;
             }
-            prev = iter;
             iter = iter->next;
         }
         return head;
