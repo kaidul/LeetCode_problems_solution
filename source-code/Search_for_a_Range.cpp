@@ -14,12 +14,11 @@ public:
         int x = -1, y = -1;
         while(start <= end) {
             mid = start + (end - start) / 2;
-            if(A[mid] < target) start = mid + 1;
-            else if(A[mid] > target) end = mid - 1;
-            else { // target == A[mid]
-                if( (mid == 0) or (A[mid - 1] < A[mid]) ) {
-                    x = mid; 
-                    break; 
+            if(A[mid] < target) {
+                start = mid + 1;  
+            } else if(A[mid] >= target) {
+                if(A[mid] == target) {
+                    x = mid;
                 }
                 end = mid - 1;
             }
@@ -31,11 +30,11 @@ public:
         while(start <= end) {
             mid = start + (end - start) / 2;
             if(A[mid] < target) start = mid + 1;
-            else if(A[mid] > target) end = mid - 1;
-            else { // target == A[mid]
-                if( (mid == n - 1) or (A[mid + 1] > A[mid]) ) {
-                    y = mid; 
-                    break; 
+            else if(A[mid] > target) {
+                end = mid - 1;
+            } else if(A[mid] <= target) {
+                if(A[mid] == target) {
+                    y = mid;
                 }
                 start = mid + 1;
             }

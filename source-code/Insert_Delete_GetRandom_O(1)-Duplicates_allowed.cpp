@@ -11,10 +11,8 @@ public:
     
     /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
     bool insert(int val) {
-        bool ret = true;
         if(!indices.count(val)) { // indices.find(val) == indices.end() won't work 
             indices[val] = set<int>();
-            ret = false;
         }
         indices[val].insert(values.size());
         values.push_back(val);
