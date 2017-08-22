@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstdlib>
 #include <fstream>
 #include <string>
 #include <cstring>
@@ -10,7 +11,7 @@ int main(void) {
     freopen("README.md", "w", stdout);
     puts("## Solutions to LeetCode Programming Problems\n\n");
     DIR *dir;
-    char *directoryPath = "/Users/kaidul/LeetCode_problems_solution/source-code/";
+    const char *directoryPath = "/home/kaidul/LeetCode_problems_solution/source-code/";
     struct dirent *ent;
     int serialNo = 0;
     if ((dir = opendir (directoryPath)) != NULL) {
