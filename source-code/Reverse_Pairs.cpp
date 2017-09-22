@@ -58,6 +58,129 @@ public:
 
 };
 
+// Segment Tree (AC)
+class Solution {
+    class SegmentTree {
+        int n;
+        vector<int> segmentNode;
+        
+        void insert(int node, int left, int right, const int indx) {
+            if(indx < left or indx > right) {
+                return;
+            }
+            if(left == right and indx == left) {
+                segmentNode[node]++;
+                return;
+            }
+            int leftNode = node << 1;
+            int rightNode = leftNode | 1;
+            int mid = left + (right - left) / 2;
+            
+            insert(leftNode, left, mid, indx);
+            insert(rightNode, mid + 1, right, indx);
+            
+            segmentNode[node] = segmentNode[leftNode] + segmentNode[rightNode];
+        }
+        
+        int query(int node, int left, int right, const int L, const int R) {
+            if(left > R or right < L) {
+                return 0;
+            }
+            if(left >= L and right <= R) {
+                return segmentNode[node];
+            }
+            
+            int leftNode = node << 1;
+            int rightNode = leftNode | 1;
+            int mid = left + (right - left) / 2;
+            
+            return query(leftNode, left, mid, L, R) + query(rightNode, mid + 1, right, L, R);
+        }
+        
+    public:
+        void init(int n) {
+            this->n = n;
+            int N = 2 * pow(2.0, floor(log((double) n) / log(2.0)) + 1);
+            segmentNode.resize(N, 0);
+        }
+
+        int query(const int L, const int R) {
+            return query(1, 0, n - 1, L, R);
+        }
+        
+        void insert(int value) {
+            insert(1, 0, n - 1, value);
+        } 
+        
+    };
+    
+    int lowerBound(vector<int>& nums, long long key) {
+        int left = 0, right = nums.size();
+        while(left < right) {
+            int mid = left + (right - left) / 2;
+            if(nums[mid] >= key) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+    
+public:
+    int reversePairs(vector<int>& nums) {
+        int result = 0;
+        if(nums.empty()) {
+            return result;
+        }
+        int n = (int)nums.size();
+        vector<int> numsCopy(nums);
+        sort(numsCopy.begin(), numsCopy.end());
+        SegmentTree segmentTree;
+        segmentTree.init(n);
+        for(int i = 0; i < n; i++) {
+            result += segmentTree.query(lowerBound(numsCopy, 2LL * nums[i] + 1), nums.size() - 1);
+            segmentTree.insert(lowerBound(numsCopy, nums[i]));
+        }
+        return result;
+    }
+};
+
+// BIT (AC)
+class Solution {
+    void update(vector<int>& BIT, int index) {
+        while (index > 0) {
+            BIT[index]++;
+            index -= index & (-index);
+        }
+    }
+
+    int query(vector<int>& BIT, int index) {
+        int sum = 0;
+        while (index < BIT.size()) {
+            sum += BIT[index];
+            index += index & (-index);
+        }
+        return sum;
+    }
+    
+public:
+    int reversePairs(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> numsCopy(nums);
+
+        sort(numsCopy.begin(), numsCopy.end());
+
+        vector<int> BITS(n + 1, 0);
+        int count = 0;
+        for(int i = 0; i < n; i++) {
+            count += query(BITS, lower_bound(numsCopy.begin(), numsCopy.end(), 2LL * nums[i] + 1) - numsCopy.begin() + 1);
+            update(BITS, lower_bound(numsCopy.begin(), numsCopy.end(), nums[i]) - numsCopy.begin() + 1);
+        }
+        return count;
+    }
+};
+
 // TLE (for skewed binary tree)
 class Solution {
     class BST {
