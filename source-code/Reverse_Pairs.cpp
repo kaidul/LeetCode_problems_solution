@@ -128,6 +128,8 @@ class Solution {
     }
     
 public:
+    /*
+    // slower, need to find lower_bound
     int reversePairs(vector<int>& nums) {
         int result = 0;
         if(nums.empty()) {
@@ -144,38 +146,68 @@ public:
         }
         return result;
     }
+    */
+
+    // faster
+    int reversePairs(vector<int>& nums) {
+        int result = 0;
+        if(nums.empty()) {
+            return result;
+        }
+        int n = (int)nums.size();
+        vector<pair<int, int>> data(n);
+        for(int i = 0; i < n; i++) {
+            data[i] = {nums[i], i};
+        }
+        sort(data.begin(), data.end());
+        SegmentTree segmentTree;
+        segmentTree.init(n);
+        for(int i = 0, k = 0; i < n; i++) {
+            while(k < n and 2LL * data[k].first < data[i].first) {
+                segmentTree.insert(data[k++].second);
+            }
+            result += segmentTree.query(data[i].second + 1, n - 1);
+        }
+        return result;
+    }
 };
 
 // BIT (AC)
 class Solution {
-    void update(vector<int>& BIT, int index) {
-        while (index > 0) {
-            BIT[index]++;
-            index -= index & (-index);
+    vector<int> tree;
+    int n;
+    
+    void update(int indx, int value) {
+        while (indx <= n) {
+            tree[indx] += value;
+            indx += (indx & -indx);
         }
     }
 
-    int query(vector<int>& BIT, int index) {
+    int query(int indx) {
         int sum = 0;
-        while (index < BIT.size()) {
-            sum += BIT[index];
-            index += index & (-index);
+        while (indx > 0) {
+            sum += tree[indx];
+            indx -= (indx & -indx);
         }
         return sum;
     }
     
 public:
     int reversePairs(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> numsCopy(nums);
-
-        sort(numsCopy.begin(), numsCopy.end());
-
-        vector<int> BITS(n + 1, 0);
-        int count = 0;
+        this->n = nums.size();
+        vector<pair<int, int>> data(n);
         for(int i = 0; i < n; i++) {
-            count += query(BITS, lower_bound(numsCopy.begin(), numsCopy.end(), 2LL * nums[i] + 1) - numsCopy.begin() + 1);
-            update(BITS, lower_bound(numsCopy.begin(), numsCopy.end(), nums[i]) - numsCopy.begin() + 1);
+            data[i] = {nums[i], i + 1};
+        }
+        sort(data.begin(), data.end());
+        tree = vector<int>(n + 1, 0);
+        int count = 0;
+        for(int i = 0, k = 0; i < n; i++) {
+            while(k < n and 2LL * data[k].first < data[i].first) {
+                update(data[k++].second, 1);
+            }
+            count += query(n) - query(data[i].second);
         }
         return count;
     }
