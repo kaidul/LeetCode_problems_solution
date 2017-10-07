@@ -66,3 +66,52 @@ public:
         return result;
     }
 };
+
+// another approach (will work for k > 3)
+class Solution {
+public:
+    vector<int> maxSumOfThreeSubarrays(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> sum(n + 2, 0);
+        
+        for (int i = n - 1; i >= 0; i--) {
+            sum[i] = nums[i] + sum[i + 1];
+        }
+        for (int i = 0; i < n; i++) {
+            if (i + k <= n) sum[i] -= sum[i + k];
+            else sum[i] = INT_MIN;
+        }
+
+        vector<vector<int>> dp(n + 2, vector<int> (4, -2E9));
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 0;
+        }
+
+        for (int j = 1; j <= 3; j++) {
+           for (int i = n - 1; i >= 0; i--) {
+                int tmp = sum[i];
+                if (j - 1) {
+                    if (i + k <= n) tmp += dp[i + k][j - 1];
+                    else tmp = INT_MIN;
+                }    
+                dp[i][j] = max(dp[i + 1][j], tmp);
+            }
+        }
+
+        vector<int> ans;
+        int indx = 3;
+        int best = dp[0][3];
+
+        for (int i = 0; i < n and indx > 0; i++) {
+            if (dp[i][indx] == best && dp[i][indx] - sum[i] == dp[i + k][indx - 1]) {
+                best -= sum[i];
+                ans.emplace_back(i);
+                i = i + k - 1;
+                indx--;
+            }
+        }
+
+        return ans;
+    }
+};
