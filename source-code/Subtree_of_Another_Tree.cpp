@@ -20,3 +20,38 @@ public:
         return isSameTree(s, t) or isSubtree(s->left, t) or isSubtree(s->right, t);
     }
 };
+
+// using preorder hash
+class Solution {
+    string preorderHash(TreeNode* root) {
+        if(!root) {
+            return "#";
+        }
+        return to_string(root->val)
+                + "," + preorderHash(root->left)
+                + "," + preorderHash(root->right);
+    }
+    
+    string checkSubtree(TreeNode* root, string const& signature, bool& isSubtree) {
+        if(!root) {
+            return "#";
+        }
+        if(isSubtree) {
+            return "";
+        }
+        string preorder = to_string(root->val);
+        preorder += "," + checkSubtree(root->left, signature, isSubtree);
+        preorder += "," + checkSubtree(root->right, signature, isSubtree);
+        if(preorder == signature) {
+            isSubtree = true;
+        }
+        return preorder;
+    }
+public:
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        string signature = preorderHash(t);
+        bool isSubtree = false;
+        checkSubtree(s, signature, isSubtree);
+        return isSubtree;
+    }
+};
