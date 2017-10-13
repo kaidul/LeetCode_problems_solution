@@ -28,6 +28,10 @@ int main(void) {
             }
             filename[n] = '\0';
             string sFileName = string(filename);
+            // ignoring Mac's .DS_Store
+            if(sFileName == ".DS_Store") {
+		continue;
+	    }
             int dot = sFileName.find('.');
             assert(dot != string::npos);
             sFileName = sFileName.substr(0, dot); // trimming extension

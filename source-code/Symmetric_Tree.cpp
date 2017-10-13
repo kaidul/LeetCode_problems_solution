@@ -7,6 +7,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// using level order traversal
 class Solution {
 public:
     bool isPalindrome(vector<int> &container) {
@@ -50,5 +51,22 @@ public:
             else q.push(make_pair(dummy, curr_level + 1));
         }
         return true;
+    }
+};
+
+// using recursion
+class Solution {
+    bool isSymmetric(TreeNode* root1, TreeNode* root2) {
+        if(!root1 and !root2) {
+            return true;
+        }
+        if(!root1 or !root2) {
+            return false;
+        }
+        return root1->val == root2->val and isSymmetric(root1->left, root2->right) and isSymmetric(root1->right, root2->left);
+    }
+public:
+    bool isSymmetric(TreeNode* root) {
+        return isSymmetric(root, root);
     }
 };

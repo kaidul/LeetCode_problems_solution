@@ -1,5 +1,4 @@
 class Solution {
-    // AC :) did pruning as much as I can, but still very laggy in cpu time graph
     bool isMatchRecur(string const& txt, int p, string const& pattern, int q, vector<vector<bool>>& visited, vector<vector<bool>>& dp) {
         if(p == txt.length() and q == pattern.length()) return true;
         if(q == pattern.length()) return false; 
@@ -18,7 +17,7 @@ class Solution {
         if(pattern[q] == '?') {
             return dp[p][q] = isMatchRecur(txt, p + 1, pattern, q + 1, visited, dp);
         } else if(pattern[q] == '*') {
-            for(int i = 0; i <= txt.length(); ++i) {
+            for(int i = 0; i <= txt.length() - p; ++i) {
                 if(isMatchRecur(txt, p + i, pattern, q + 1, visited, dp)) {
                     return dp[p][q] = true;
                 }

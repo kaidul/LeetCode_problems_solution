@@ -26,17 +26,17 @@ public:
         return -1;
     }
     */
-    int jump(int A[], int n) {
+
+    int jump(vector<int>& A) {
+        int n = (int)A.size();
         if(n < 2) return 0;
-        int curr = 0;
         int steps = 0;
         for(int i = 0; i < n; ) {
-            curr = max(curr, A[i] + i);
-            if (curr > 0) steps++;
-
-            if (curr >= n - 1) return steps;
+            int maxDistance = A[i] + i;
+            steps++;
+            if (maxDistance >= n - 1) return steps;
             int tmp = 0;
-            for (int j = i + 1; j <= curr; j++) {
+            for (int j = i + 1; j <= maxDistance; j++) {
                 if (j + A[j] > tmp) {
                     tmp = A[j] + j;
                     i = j;
