@@ -1,20 +1,3 @@
-class Solution {
-public:
-    int numDistinct(string S, string T) {
-
-        vector<int> f(T.length() + 1);
-
-        f[T.length()] = 1;
-
-        for(int i = S.length() - 1; i >= 0; --i) {
-            for(int j = 0; j < T.length(); ++j) {
-                f[j] += (S[i] == T[j]) * f[j + 1];
-            }
-        }
-        return f[0];
-    }
-};
-
 // dp[i][j] = number of distinct sub-sequences for T[1...i] and S[1..j]
 class Solution {
 public:
@@ -31,5 +14,34 @@ public:
             }
         }
         return dp[m][n];
+    }
+};
+
+// top-down
+class Solution {
+    int numDistinct(int i, string& s, int j, string& t, vector<vector<int>>& dp) {
+        if(i == (int)s.length()) {
+            return j == (int)t.length();
+        }
+        if(j == (int)t.length()) {
+            return dp[i][j] = true;
+        }
+        if(dp[i][j] != -1) {
+            return dp[i][j];
+        }
+        int ret = 0;
+        if(t[j] == s[i]) {
+            ret += numDistinct(i + 1, s, j + 1, t, dp);
+        }
+        ret += numDistinct(i + 1, s, j, t, dp);
+        
+        return dp[i][j] = ret;
+    }
+public:
+    int numDistinct(string s, string t) {
+        int m = t.length();
+        int n = s.length();
+        vector<vector<int> > dp(n + 1, vector<int>(m + 1, -1));
+        return numDistinct(0, s, 0, t, dp);
     }
 };
