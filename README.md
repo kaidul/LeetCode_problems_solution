@@ -469,7 +469,7 @@
 466. [Search in Rotated Sorted Array II](source-code/Search_in_Rotated_Sorted_Array_II.cpp)
 467. [Search Insert Position](source-code/Search_Insert_Position.cpp)
 468. [Second Highest Salary](source-code/Second_Highest_Salary.sql)
-469. [Second Minimum Node In a Binary Tree](source-code/Second_Minimum Node_In_a_Binary_Tree.cpp)
+469. [Second Minimum Node In a Binary Tree](source-code/Second_Minimum_Node_In_a_Binary_Tree.cpp)
 470. [Self Crossing](source-code/Self_Crossing.cpp)
 471. [Sequence Reconstruction](source-code/Sequence_Reconstruction.cpp)
 472. [Serialize and Deserialize Binary Tree](source-code/Serialize_and_Deserialize_Binary_Tree.cpp)
