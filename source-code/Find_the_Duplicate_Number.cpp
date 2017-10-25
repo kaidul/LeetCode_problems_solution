@@ -9,7 +9,8 @@ class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
         if(nums.empty()) return 0;
-        int left = 0, right = nums.size() - 1;
+        int n = nums.size();
+        int left = 1, right = n - 1;
         while(left < right) {
             int mid = left + (right - left) / 2;
             int cnt = countNumbers(nums, mid);
