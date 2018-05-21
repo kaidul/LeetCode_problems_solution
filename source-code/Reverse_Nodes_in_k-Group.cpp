@@ -36,11 +36,9 @@ public:
                 prev->next = head;
                 prev = tmp;
                 head = prev->next;
-                iter = head;
                 len = 0;
-            } else {
-                iter = iter->next;
             }
+            iter = iter->next;
         }
         return newHead;
     }

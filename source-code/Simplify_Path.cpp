@@ -6,11 +6,10 @@ public:
         for(int i = 0; i < path.length(); ) {
             int pos = path.find('/', i);
             string dir;
-            if(pos == string::npos) {
-                dir = path.substr(i, path.length() - i);
-            } else {
-                dir = path.substr(i, pos - i);    
+	    if(pos == string::npos) {
+                pos = path.length();
             }
+            dir = path.substr(i, pos - i);
             if(!dir.empty()) {
                 if(dir == ".") {
                     // nothing
@@ -21,9 +20,6 @@ public:
                 } else {
                     Stack.push(dir);    
                 }
-            }
-            if(pos == string::npos) {
-                pos = path.length();
             }
             // skip all redundant slaces
             for( ;pos < path.length() and path[pos] == '/'; ++pos);

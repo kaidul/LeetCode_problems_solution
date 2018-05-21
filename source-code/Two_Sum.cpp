@@ -10,8 +10,9 @@ public:
             // if(numbers[i] <= target) {
                 int indx = hash[target - numbers[i]];
                 if(indx > 0 and i + 1 != indx) {
-                    result.push_back(i + 1);
-                    result.push_back(indx);
+                    result.push_back(i);
+                    result.push_back(indx - 1);
+                    break;
                 }
             // }
         }

@@ -1,54 +1,62 @@
 class Solution {
+    // top-down
+    bool wordBreak(int indx, string const& s, vector<string>& wordDict, vector<int>& dp) {
+        if(indx == s.length()) {
+            return true;
+        }
+        if(dp[indx] != -1) {
+            return dp[indx];
+        }
+        for(string word: wordDict) {
+            int len = word.length();
+            if(indx + len <= s.length() and s.substr(indx, len) == word and wordBreak(indx + len, s, wordDict, dp)) {
+                return dp[indx] = true;
+            }
+        }
+        return dp[indx] = false;
+    }
 public:
-    bool wordBreak(string s, unordered_set<string> &dict) {
-        //return wordBreakHelper(s, dict, 0);
-        // dp[i] = true if string 0...(i - 1) can be formed with dictionary words
-        bool dp[s.length() + 1];
-        memset(dp, false, sizeof dp);
+    bool wordBreak(string s, vector<string>& wordDict) {
+        // vector<int> dp(s.length(), -1);
+        // return wordBreak(0, s, wordDict, dp);
+        
+        // bottom-up
+        int n = s.length();
+        vector<bool> dp(n, false); 
         dp[0] = true;
-        for(int i = 0, n = s.length(); i < n; ++i) {
+        for(int i = 0; i < n; ++i) {
             if(dp[i]) {
-                for(unordered_set<string>::iterator it = dict.begin(); it != dict.end(); ++it) {
-                    int len = (*it).length();
-                    int end = i + len;
-                    if(end <= s.length() and !dp[end] and s.substr(i, len) == *it) {
-                        dp[end] = true;
+                for(string const& word : wordDict) {
+                    int len = word.length();
+                    if(i + len <= n and !dp[i + len] and s.substr(i, len) == word) {
+                        dp[i + len] = true;
                     } 
                 }
             }
         }
-        return dp[s.length()];
-
-        // O(n^3) solution
+        return dp[n];
+        
         /*
-        vector <vector<bool> > dp(s.length(), vector<bool>(s.length(), false) );
-        for(int i = 0; i < s.length(); ++i) {
-            for(int j = 0; j < s.length(); ++j) {
+        // O(n^3) solution
+        int n = (int)s.length();
+        vector <vector<bool> > dp(n, vector<bool>(n, false) );
+        unordered_set<string> dict(wordDict.begin(), wordDict.end());
+        for(int i = 0; i < n; ++i) {
+            for(int j = i; j < n; ++j) {
                 if(dict.find(s.substr(i, j - i + 1)) != dict.end())
                     dp[i][j] = true;
             }
         }
-        for(int i = 0; i < s.length(); ++i) {
-            for(int j = 0; j < s.length(); ++j) {
+        for(int i = 0; i < n; ++i) {
+            for(int j = i; j < n; ++j) {
                 for(int k = i; k <= j; k++) {
-                    if(!dp[i][j]) dp[i][j] = dp[i][k] and dp[k + 1][j];
+                    if(!dp[i][j]) {
+                        dp[i][j] = dp[i][k] and dp[k + 1][j];
+                    }
                 }
             }
         }
-        return dp[0][s.length() - 1];
+        return dp[0][n - 1];
         */
-    }
-    
-    // normal recursion.TLE
-    bool wordBreakHelper(string s, unordered_set<string> dict, int start) {
-        if(start == s.length()) return true;
-        for(unordered_set<string>::iterator it = dict.begin(); it != dict.end(); ++it) {
-            int len = (*it).length();
-            int end = start + len;
-            if(end <= s.length() and s.substr(start, len) == *it) {
-                if(wordBreakHelper(s, dict, end)) return true;
-            }
-        }
-        return false;
     }
 };

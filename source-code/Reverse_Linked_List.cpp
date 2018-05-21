@@ -8,13 +8,12 @@
  */
 class Solution {
 public:
-    void reverseListRecur(ListNode* &head, ListNode* tail, int &cnt) {
-        if(!tail) return;
-        reverseListRecur(head, tail->next, cnt);
-        if(cnt <= 0) return;
-        swap(head->val, tail->val);
-        head = head->next;
-        cnt--;
+    void reverseListRecur(ListNode* head, ListNode* &head2) {
+        if(!head) return;
+	int value = head->val;
+        reverseListRecur(head->next, head2);
+        head2->val = value;
+        head2 = head2->next;
     }
 
     ListNode* reverseList(ListNode* head) {
@@ -38,25 +37,21 @@ public:
         // recursively
         /*
         ListNode *iter = head;
-        int cnt = 0;
-        while(iter) {
-            ++cnt;
-            iter = iter->next;
-        }
-        cnt /= 2;
         ListNode *head2 = head;
-        reverseListRecur(head2, head, cnt);
+        reverseListRecur(head2, head);
         return head;
         */
 
         // O(n) without extra space :)
         if(!head or !head->next) return head;
         ListNode* curr = head;
+	ListNode* prev = nullptr;
         ListNode* newHead = nullptr;
         while(curr) {
             ListNode* nxt = curr->next;
             curr->next = prev;
             newHead = curr;
+	    prev = curr;
             curr = nxt;
         }
         return newHead;

@@ -14,11 +14,33 @@ public:
         }
         return true;
     }
+
+    int numDecodingsUtil(string s, int indx, vector<int>& dp) {
+        if(indx == (int)s.length()) {
+            return 1;
+        }
+        if(dp[indx] != -1) {
+            return dp[indx];
+        }
+        int ret = 0;
+        if(s[indx] != '0') {
+            ret += numDecodingsUtil(s, indx + 1, dp);
+        }
+        if(indx + 1 < s.length() and valid(s.substr(indx, 2))) {
+            ret += numDecodingsUtil(s, indx + 2, dp);
+        }
+
+        return dp[indx] = ret;
+    }
     
-	int numDecodings(string s) {
+    int numDecodings(string s) {
         if (s.empty()) {
             return 0;
         }
+	// recursive
+	// vector<int> dp(s.size(), -1);
+        // return numDecodingsUtil(s, 0, dp);
+
         vector<int> dp(s.size(), 0);
         if (s[0] != '0') {
             dp[0] = 1;
@@ -33,7 +55,6 @@ public:
             dp[1]++;
         }
 
-        //DP
         for (int i = 2; i < s.size(); i++) {
             if (s[i] != '0') {
                 dp[i] += dp[i - 1];

@@ -23,7 +23,7 @@ public:
         }
         ListNode *slow = head, *fast = head->next;
         ListNode *tail = nullptr;
-        while(fast) {
+        while(fast and fast->next) {
             fast = fast->next;
             tail = slow;
             slow = slow->next;

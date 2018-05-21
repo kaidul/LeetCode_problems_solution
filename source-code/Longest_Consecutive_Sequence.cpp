@@ -29,6 +29,6 @@ public:
             result = max(result, seqLen);
         }
          
-        return res;
+        return result;
     }
 };

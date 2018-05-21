@@ -1,5 +1,5 @@
 /**
- * Definition for binary tree
+ * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
  *     TreeNode *left;
@@ -8,32 +8,32 @@
  * };
  */
 class Solution {
-public:
-    void dfs(int start, int end, vector<TreeNode *> &result) {
-        if (start > end) {
-            result.push_back(NULL);
+    void generateTreesUtil(int left, int right, vector<TreeNode*>& result) {
+        if(left > right) {
+            result.push_back(nullptr);
             return;
         }
-        for (int i = start; i <= end; i++) {
-            vector<TreeNode *> lefts;
-            dfs(start, i - 1, lefts);
-            vector<TreeNode *> rights;
-            dfs(i + 1, end, rights);
-
-            for (int li = 0; li < lefts.size(); li++) {
-                for (int ri = 0; ri < rights.size(); ri++) {
-                    TreeNode* node = new TreeNode(i);
-                    node->left = lefts[li];
-                    node->right = rights[ri];
-                    result.push_back(node);
-                }
+        for(int i = left; i <= right; i++) {
+            vector<TreeNode*> leftSubTrees;
+            generateTreesUtil(left, i - 1, leftSubTrees);
+            vector<TreeNode*> rightSubTrees;
+            generateTreesUtil(i + 1, right, rightSubTrees);
+            
+            for(TreeNode* leftSubTree : leftSubTrees) {
+                for(TreeNode* rightSubTree : rightSubTrees) {
+                    TreeNode* root = new TreeNode(i);
+                    root->left = leftSubTree;
+                    root->right = rightSubTree;
+                    result.push_back(root);
+                }    
             }
         }
     }
-
-    vector<TreeNode *> generateTrees(int n) {
-        vector<TreeNode*> res;
-        dfs(1, n, res);
-        return res;
+public:
+    vector<TreeNode*> generateTrees(int n) {
+        vector<TreeNode*> result;
+        if(n == 0) return result;
+        generateTreesUtil(1, n, result);
+        return result;
     }
 };

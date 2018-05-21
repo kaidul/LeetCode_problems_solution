@@ -1,45 +1,49 @@
 class Solution {
-public:
-
-    void wordBreakUtils(string s, unordered_set<string> &dict, string solution, vector<string> &result) {
-        if(s.empty()) {
-            solution.erase(solution.length() - 1, 1);
-            result.push_back(solution);
+    bool isPossible(string s, vector<string>& wordDict) {
+        int n = s.length();
+        vector<bool> dp(n, false); 
+        dp[0] = true;
+        for(int i = 0; i < n; ++i) {
+            if(dp[i]) {
+                for(string const& word : wordDict) {
+                    int len = word.length();
+                    if(i + len <= n and !dp[i + len] and s.substr(i, len) == word) {
+                        dp[i + len] = true;
+                    } 
+                }
+            }
+        }
+        return dp[n];
+    }
+    
+    void wordBreak(int indx, string const& s, vector<string>& wordDict, vector<string>& words, vector<string>& result) {
+        if(indx == s.length()) {
+            string solution = "";
+            for(string word : words) {
+                solution += word;
+                solution += ' ';
+            }
+            result.push_back(solution.substr(0, solution.length() - 1));
             return;
         }
-        for(auto it = dict.begin(); it != dict.end(); ++it) {
-            int len = (*it).length();
-            if(len <= s.length() and s.substr(0, len) == *it) {
-                wordBreakUtils(s.substr(len, s.length() - len), dict, solution + (*it) + " ", result);
+        for(string word: wordDict) {
+            int len = word.length();
+            if(indx + len <= s.length() and s.substr(indx, len) == word) {
+                words.push_back(word);
+                wordBreak(indx + len, s, wordDict, words, result);
+                words.pop_back();
             }
         }
     }
-
-    vector<string> wordBreak(string s, unordered_set<string> &dict) {
-        // make sure with dp whether there is any solution to avoid TLE
-        // causing by unnecessary search when there is no solution
-        vector<vector<bool> > dp(s.length(), vector<bool>(s.length(), false));
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i; j < s.length(); j++) {
-                if (dict.find(s.substr(i, j - i + 1)) != dict.end()) {
-                    dp[i][j] = true;
-                }
-            }
-        }
-
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i; j < s.length(); j++) {
-                for(int k = i; k <= j; ++k) {
-                    if(!dp[i][j]) dp[i][j] = dp[i][k] and dp[k + 1][j];
-                }
-            }
-        }
-
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
         vector<string> result;
-        string solution;
-        if(!dp[0][s.length() - 1]) return result;
-        // only DFS would yield TLE (without prior checking)
-        wordBreakUtils(s, dict, solution, result);
+        if(!isPossible(s, wordDict)) {
+            return result;
+        }
+        vector<string> words;
+        wordBreak(0, s, wordDict, words, result);
+        
         return result;
     }
 };

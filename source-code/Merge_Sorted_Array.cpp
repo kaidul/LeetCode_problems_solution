@@ -2,13 +2,14 @@ class Solution {
 public:
     // AC but Extra space : O(m)
     /*
-    void merge(int A[], int m, int B[], int n) {
-        int tmp[m];
-        memcpy(tmp, A, m * sizeof(int));
+    void merge(vector<int>& A, int m, vector<int>& B, int n) {
+        vector<int> tmp(A);
         int k = 0, i = 0, j = 0;
         while(i < m and j < n) {
-            if(tmp[i] <= B[j]) A[k++] = tmp[i++];
-            else A[k++] = B[j++];
+            if(tmp[i] <= B[j]) 
+	    	A[k++] = tmp[i++];
+            else
+	    	A[k++] = B[j++];
         }
         while(i < m) {
             A[k++] = tmp[i++];
@@ -18,13 +19,17 @@ public:
         }
     }
     */
+
+	
     
-    void merge(int A[], int m, int B[], int n) {
-        int count = m + n - 1;
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int k = m + n - 1;
         m--; n--;
-        while (m >= 0 and n >= 0) {
-            A[count--] = A[m] > B[n] ? A[m--] : B[n--];
+        while(m >= 0 and n >= 0) {
+            nums1[k--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--]; 
         }
-        while (n >= 0) { A[count--] = B[n--]; }
+        while(n >= 0) {
+            nums1[k--] = nums2[n--];
+        }
     }
 };

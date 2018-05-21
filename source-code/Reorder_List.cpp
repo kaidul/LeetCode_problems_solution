@@ -7,41 +7,51 @@
  * };
  */
 class Solution {
-public:
-    void reorderList(ListNode *head) {
-        if(!head) { return; }
-        ListNode *slow = head, *fast = nullptr;
-        if(head->next == nullptr) { return; }
-        fast = head->next;
-        if(head->next->next == nullptr) { return; }
-        if(fast) while(fast->next) {
-            fast = fast->next;
+    ListNode* findMid(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        fast = fast->next;
+        while(fast->next) {
             slow = slow->next;
-            if(fast->next) fast = fast->next;
-        }
-        ListNode *tmp = slow->next;
-        slow->next = nullptr;
-        ListNode *head2 = tmp;
-        tmp = tmp->next;
-        head2->next = nullptr;
-        while(tmp) {
-            ListNode *tmp2 = tmp->next;
-            tmp->next = head2;
-            head2 = tmp;
-            tmp = tmp2;
-        }
-        ListNode *backup = head, *iter = head;
-        head = head->next;
-        while(head2) {
-            iter->next = head2;
-            iter = iter->next;
-            head2 = head2->next;
-
-            if(head) {
-                iter->next = head;
-                iter = iter->next;
-                head = head->next;
+            fast = fast->next;
+            if(fast->next) {
+                fast = fast->next;
             }
+        }
+        return slow;
+    }
+
+    ListNode* reverseList(ListNode* head) {
+        ListNode* iter = head;
+        ListNode* prev = nullptr;
+        while(iter) {
+            ListNode* next = iter->next;
+            iter->next = prev;
+            prev = iter;
+            head = iter;
+            iter = next;
+        }
+        return head;
+    }
+    
+public:
+    void reorderList(ListNode* head) {
+        if(!head or !head->next or !head->next->next) {
+            return;
+        }
+        ListNode* mid = findMid(head);
+        ListNode* head2 = mid->next;
+        mid->next = nullptr;
+        head2 = reverseList(head2);
+        ListNode* backup = head;
+        while(head2) {
+            ListNode* next = head->next;
+            head->next = head2;
+            ListNode* next2 = head2->next;
+            head2->next = next;
+            
+            head = next;
+            head2 = next2;
         }
         head = backup;
     }

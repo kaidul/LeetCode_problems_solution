@@ -9,16 +9,17 @@
  */
 class Solution {
 public:
-    void flatten(TreeNode *root) {
+    void flatten(TreeNode* root) {
         while(root) {
             if(root->left) {
-                TreeNode *pre = root->left;
-                while(pre->right) {
-                    pre = pre->right;
-                }
-                pre->right = root->right;
+                TreeNode* right = root->right;
                 root->right = root->left;
                 root->left = nullptr;
+                TreeNode* left = root->right; 
+                while(left->right) {
+                    left = left->right;
+                } 
+                left->right = right;
             }
             root = root->right;
         }
