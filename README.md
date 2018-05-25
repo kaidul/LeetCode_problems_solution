@@ -596,4 +596,3 @@
 593. [Longest Substrin with At Most K Distinct Characters](source-code/Longest_Substrin_with_At_Most_K_Distinct_Characters.cpp)
 594. [H-Indx II](source-code/H-Indx_II.cpp)
 595. [Power of Four](source-code/Power_of_Four.cpp)
-Success!
