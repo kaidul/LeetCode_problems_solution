@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int maxProduct(int A[], int n) {
+    int maxProduct(vector<int> A) {
+        int n = (int)A.size();
         int res = A[0];
         int pos = max(0, A[0]);
         int neg = min(0, A[0]);

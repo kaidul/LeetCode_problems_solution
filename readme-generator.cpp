@@ -43,5 +43,6 @@ int main(void) {
         perror ("Directory open failed.");
         return EXIT_FAILURE;
     }
+    printf("Success!");
     return EXIT_SUCCESS;
 }
