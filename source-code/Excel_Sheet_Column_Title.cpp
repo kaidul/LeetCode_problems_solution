@@ -14,11 +14,19 @@ public:
 };
 
 // iterative
-string convertToTitle(int n) {
-    string ans;
-    while (n-- != 0) {
-        ans = char(int('A') + n % 26) + ans;
-        n /= 26;
+class Solution {
+public:
+    string convertToTitle(int n) {
+        string ans = "";
+        while(n) {
+            if(n % 26 == 0) {
+                ans = 'Z' + ans;
+                n--;
+            } else {
+                ans = char('A' + (n % 26) - 1) + ans;
+            }
+            n /= 26;
+        }
+        return ans;
     }
-    return ans;
-}
+};

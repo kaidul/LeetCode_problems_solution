@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
@@ -5,6 +6,7 @@
 #include <cstring>
 #include <cassert>
 #include <dirent.h>
+#include<vector>
 using namespace std;
 
 int main(void) {
@@ -13,8 +15,8 @@ int main(void) {
     DIR *dir;
     const char *directoryPath = "/Users/kaidul/LeetCode_problems_solution/source-code/";
     struct dirent *ent;
-    int serialNo = 0;
     if ((dir = opendir (directoryPath)) != NULL) {
+	vector<string> listItems;
         while ((ent = readdir (dir)) != NULL) {
             int n = strlen(ent->d_name);
             if(n < 5) { // skip hidden files
@@ -35,8 +37,15 @@ int main(void) {
             int dot = sFileName.find('.');
             assert(dot != string::npos);
             sFileName = sFileName.substr(0, dot); // trimming extension
-            printf("%d. [%s](source-code/%s)\n", ++serialNo, sFileName.c_str(), ent->d_name);
+            char buffer[512];
+	    sprintf(buffer, "[%s](source-code/%s)", sFileName.c_str(), ent->d_name);
+	    listItems.push_back(string(buffer));
         }
+	sort(listItems.begin(), listItems.end());
+	int serialNo = 0;
+	for(string const& item : listItems) {
+	    printf("%d. %s\n", ++serialNo, item.c_str());
+	}
         closedir (dir);
     } else {
         /* could not open directory */

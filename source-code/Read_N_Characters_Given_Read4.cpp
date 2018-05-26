@@ -9,17 +9,17 @@ public:
      * @return    The number of characters read
      */
     int read(char *buf, int n) {
-        int cnt = 0;
+        int idx = 0;
         char* buf4 = new char[4];
-        while(cnt < n) {
+        while(idx < n) {
             int len = read4(buf4);
-            for(int i = 0; i < min(len, n - cnt); ++i) {
-                buf[cnt++] = buf4[i];
+            for(int i = 0, m = min(len, n - idx); i < m; ++i) {
+                buf[idx++] = buf4[i];
             }
             if(len < 4) {
                 break;
             }
         }
-        return cnt;
+        return idx;
     }
 };

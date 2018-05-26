@@ -34,17 +34,15 @@ public:
         if(!head and !head->next) {
             return head;
         }
-        ListNode* prev = head;
-        ListNode* curr = head->next;
-        ListNode* tail = head;
-        while(curr) {
-            ListNode* nxt = curr->next;
-            curr->next = head;
-            head = curr;
-            curr= nxt;
-        }
-        tail->next = NULL;
-        
+        ListNode* curr = head;
+        ListNode* prev = nullptr;
+         while(curr) {
+             ListNode* nxt = curr->next;
+             curr->next = prev;
+             prev = curr;
+             head = curr;
+             curr = nxt;
+         }
         return head;
     }
 
@@ -67,9 +65,7 @@ public:
                 fast = fast->next;
             } 
         }
-        ListNode* middleNode = NULL;
         if(length & 1) {
-            middleNode = slow;
             slow = slow->next;
         }
         ListNode* secondHalf = reverseList(slow);
