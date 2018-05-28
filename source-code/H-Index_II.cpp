@@ -14,7 +14,7 @@ public:
             if(citations[mid] < n - mid) {
                 left = mid + 1;
             } else {
-                hIndx = max(hIndx, n - mid);
+                hIndx = n - mid;
                 right = mid;
             }
         }
@@ -30,7 +30,7 @@ public:
         int n = citations.size();
         for(int i = n - 1; i >= 0; --i) {
             if(citations[i] < n - i) break;
-            hIndx = max(hIndx, n - i);
+            hIndx = n - i;
         }
         return hIndx;
     }

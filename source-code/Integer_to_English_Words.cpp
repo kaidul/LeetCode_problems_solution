@@ -75,10 +75,6 @@ public:
             process(r, result);
         }
         
-        if(result[(int)result.length() - 1] == ' ') {
-            result.erase((int)result.length() - 1, 1);
-        }
-        
-        return result;
+        return result.erase((int)result.length() - 1, 1);
     }
 };
