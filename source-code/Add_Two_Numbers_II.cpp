@@ -86,11 +86,8 @@ public:
         int carry = 0;
         ListNode* head = new ListNode(0);
         ListNode* curr = head;
-        if(diff >= 0) {
-            addTwoNumbers(l1, diff, l2, curr, head, carry);        
-        } else {
-            addTwoNumbers(l2, -diff, l1, curr, head, carry); 
-        }
+        if(diff < 0) swap(l1, l2);
+        addTwoNumbers(l1, abs(diff), l2, curr, head, carry);
         if(carry) {
             ListNode* sentinel = new ListNode(carry);
             sentinel->next = curr;

@@ -18,3 +18,17 @@ public:
         return sumOfLeftLeavesRecur(root, false);
     }
 };
+
+// Another approach without any helper method
+class Solution {
+public:
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(!root) return 0;
+        if(root->left and (!root->left->left and !root->left->right)) {
+            return root->left->val
+                + sumOfLeftLeaves(root->right);
+        }
+        return sumOfLeftLeaves(root->left)
+            + sumOfLeftLeaves(root->right);
+    }
+};

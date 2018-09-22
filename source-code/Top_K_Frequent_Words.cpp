@@ -21,10 +21,8 @@ public:
             if(pQ.size() < k) {
                 pQ.push({entry->second, entry->first});
             } else {
-                if(pQ.top().first < entry->second) {
-                    pQ.pop();
-                    pQ.push({entry->second, entry->first});
-                } else if(pQ.top().first == entry->second and entry->first < pQ.top().second) {
+                if((pQ.top().first < entry->second) or
+                    (pQ.top().first == entry->second and entry->first < pQ.top().second)) {
                     pQ.pop();
                     pQ.push({entry->second, entry->first});
                 }

@@ -21,7 +21,7 @@ public:
     }
 };
 
-// using preorder hash
+// using preorder hash (postorder or inorder also works)
 class Solution {
     string preorderHash(TreeNode* root) {
         if(!root) {

@@ -24,7 +24,7 @@ public:
     }
 };
 
-// using tow pointers (complex)
+// using tow pointers
 class Solution {
 public:
     int findShortestSubArray(vector<int>& nums) {
@@ -56,12 +56,6 @@ public:
                 freq2[nums[start]]--;
                 start++;
                 maxFreq2--;
-                auto last = freq2.end();
-                --last;
-                if(last->second > maxFreq2) {
-                    maxFreq2 = last->second;
-                    curr = last->first;
-                }
             }
         }
         

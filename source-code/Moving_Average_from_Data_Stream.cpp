@@ -1,28 +1,23 @@
 class MovingAverage {
-    vector<int> nums;
-    int n;
-    int k;
-    int m;
+    deque<int> window;
+    int sum;
+    int maxLength;
 public:
     /** Initialize your data structure here. */
     MovingAverage(int size) {
-        n = size;
-        nums.clear();
-        nums.resize(n, 0);
-        k = 0; m = 0;
+        sum = 0;
+        maxLength = size;
+        window = deque<int>();
     }
     
     double next(int val) {
-        nums[k++] = val;
-        if(k == n) k = 0;
-        if(m < n) ++m;
-        double sum = 0.0;
-        for(int i = 0; i < m; ++i) {
-            sum += nums[i];
+        sum += val;
+        window.push_back(val);
+        if(window.size() > maxLength) {
+            sum -= window.front();
+            window.pop_front();
         }
-        double avg = sum / (1.0 * m);
-        
-        return avg;
+        return sum / (1.0 * window.size());
     }
 };
 

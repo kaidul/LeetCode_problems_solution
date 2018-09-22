@@ -20,9 +20,9 @@ public:
             }
         }
 #endif
-        // Using maxHeap (faster)
-        auto compare = [] (pair<int, int> const& lhs, pair<int, int> const& rhs) -> bool const { return lhs.first < rhs.first; };
-        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compare)> Q(compare);
+        // auto compare = [] (pair<int, int> const& lhs, pair<int, int> const& rhs) -> bool const { return lhs.first < rhs.first; };
+        // priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compare)> Q(compare);
+        priority_queue<pair<int, int>> Q;
         for(int i = 0 ; i < MAX_CHAR; ++i) {
             if(freq[i] > 0) {
                 Q.push({freq[i], i});

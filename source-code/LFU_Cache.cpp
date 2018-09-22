@@ -52,10 +52,11 @@ private:
         delete chain;
     }
 
-    Chain* removeNode(int key) {
+    void removeNode(int key) {
         Chain* chain = Map[key].first;
         ListNode* node = Map[key].second;
         Map.erase(key);
+        
         if(node->prev) {
             node->prev->next = node->next;
         } else {
@@ -67,12 +68,13 @@ private:
             chain->tail = node->prev;
         }
         delete node;
-
-        Chain* newChain = nullptr;
+    }
+    
+    Chain* updateChain(Chain* chain) {
         if(!chain->next or chain->next->freq > chain->freq + 1) {
             chain->next = new Chain(chain);
         }
-        newChain = chain->next;
+        Chain* newChain = chain->next;
 
         if(!chain->head and !chain->tail) {
             removeChain(chain);
@@ -81,9 +83,8 @@ private:
         return newChain;
     }
 
-    void setHead(int key) {
-        Chain* chain = Map[key].first;
-        ListNode* node = Map[key].second;
+    void setHead(Chain* chain, ListNode* node) {
+        Map[node->key] = {chain, node};
         node->next = chain->head;
         node->prev= nullptr;
         if(chain->head) {
@@ -104,7 +105,7 @@ public:
 
     LFUCache(int capacity) {
         this->capacity = capacity;
-        head = nullptr;
+        head = new Chain();
         Map = unordered_map<int, pair<Chain*, ListNode*> >();
         currLen = 0;
     }
@@ -113,28 +114,30 @@ public:
         if(Map.find(key) == Map.end()) {
             return -1;
         }
+        Chain* chain = Map[key].first;
         ListNode* node = Map[key].second;
         int value = node->value;
-        Chain* newChain = removeNode(key);
+        removeNode(key);
+        Chain* newChain = updateChain(chain);
         ListNode* newNode = new ListNode(key, value);
-        Map[key] = {newChain, newNode};
-        setHead(key);
+        setHead(newChain, newNode);
 
         return value;
     }
 
-    void set(int key, int value) {
+    void put(int key, int value) {
 
         if(capacity == 0) {
             return;
         }
 
+        ListNode* newNode = new ListNode(key, value);
+        
         if(Map.find(key) != Map.end()) {
-            ListNode* node = Map[key].second;
-            Chain* newChain = removeNode(key);
-            ListNode* newNode = new ListNode(key, value);
-            Map[key] = {newChain, newNode};
-            setHead(key);
+            Chain* chain = Map[key].first;
+            removeNode(key);
+            Chain* newChain = updateChain(chain);
+            setHead(newChain, newNode);
             return;
         }
 
@@ -142,11 +145,8 @@ public:
             Chain* chain = head;
             ListNode* node = chain->tail;
             removeNode(node->key);
+            updateChain(chain);
             currLen--;
-        }
-        ListNode* newNode = new ListNode(key, value);
-        if(!head) {
-            head = new Chain();
         }
         if(head->freq > 0) {
             Chain* newHead = new Chain();
@@ -154,8 +154,7 @@ public:
             head->prev = newHead;
             head = newHead;
         }
-        Map[key] = {head, newNode};
-        setHead(key);
+        setHead(head, newNode);
 
         currLen++;
     }

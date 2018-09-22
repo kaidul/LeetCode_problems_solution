@@ -4,7 +4,6 @@ public:
         int n = nums.size();
         if(n == 0) return 0;
         vector<int> I(n + 1, numeric_limits<int>::max());
-        vector<int> L(n, 0);
         I[0] = numeric_limits<int>::min();
         int length = 0;
         for(int i = 0; i < n; ++i) {
