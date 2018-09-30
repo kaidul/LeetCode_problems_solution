@@ -71,8 +71,6 @@ public:
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(!root) return root;
-        /*
-        // RTE :(
         bfs(root, p, q);
         lcaInit(p);
         lcaInit(q);
@@ -96,7 +94,35 @@ public:
             }
         }
         return parent[p];
-        */
+    }
+};
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) {
+            return root;
+        }
+        if(root == p or root == q) {
+            return root;
+        }
+        
+        TreeNode* leftLCA = lowestCommonAncestor(root->left, p, q);
+        TreeNode* rightLCA = lowestCommonAncestor(root->right, p, q);
+        
+        if(leftLCA and rightLCA) {
+            return root;
+        }
+        
+        return (!leftLCA) ? rightLCA : leftLCA;
+    }
+};
+
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) return root;
         if(root->val > p->val and root->val > q->val) {
             return lowestCommonAncestor(root->left, p, q);
         }

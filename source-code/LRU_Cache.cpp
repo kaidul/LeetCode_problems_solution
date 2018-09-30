@@ -83,3 +83,44 @@ private:
         }
     }
 };
+
+// using C++ list. got RE for memory corruption though :(
+class LRUCache {
+public:
+    LRUCache(int capacity) {
+        entries = list<pair<int, int>> ();
+        table = unordered_map<int, list<pair<int, int>>::iterator> ();
+        LRUCache::capacity = capacity;
+    }
+
+    int get(int key) {
+        if (table.find(key) != table.end()) {
+            auto node = table[key];
+            pair<int, int> entry = *node;
+            entries.erase(node);
+            entries.push_front(entry);
+            return entry.second;
+        }
+        return -1;
+    }
+
+    void put(int key, int value) {
+        pair<int, int> newEntry = {key, value};
+        if (table.find(key) != table.end()) {
+            auto curr = table[key];
+            entries.erase(curr);
+        } else {
+            if(entries.size() >= capacity) {
+                pair<int, int> tailEntry = entries.back();
+                entries.pop_back();
+                table.erase(tailEntry.first);
+            }
+        }
+        entries.push_front(newEntry);
+        table[key] = entries.begin();
+    }
+private:
+    list<pair<int, int>> entries;
+    unordered_map<int, list<pair<int, int>>::iterator> table;
+    int capacity;
+};

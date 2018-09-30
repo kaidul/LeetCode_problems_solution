@@ -2,11 +2,11 @@ class Solution {
 public:
     string simplifyPath(string path) {
         string result = "/";
-        stack<string> Stack;
+        deque<string> dQ;
         for(int i = 0; i < path.length(); ) {
             int pos = path.find('/', i);
             string dir;
-	    if(pos == string::npos) {
+            if(pos == string::npos) {
                 pos = path.length();
             }
             dir = path.substr(i, pos - i);
@@ -14,26 +14,22 @@ public:
                 if(dir == ".") {
                     // nothing
                 } else if(dir == "..") {
-                    if(!Stack.empty()) {
-                        Stack.pop();
+                    if(!dQ.empty()) {
+                        dQ.pop_back();
                     }
                 } else {
-                    Stack.push(dir);    
+                    dQ.push_back(dir);    
                 }
             }
             // skip all redundant slaces
             for( ;pos < path.length() and path[pos] == '/'; ++pos);
+            
             i = pos;
         }
-        stack<string> Stack2;
-        while(!Stack.empty()) {
-            Stack2.push(Stack.top());
-            Stack.pop();
-        }
-        while(!Stack2.empty()) {
-            result += Stack2.top();
-            Stack2.pop();
-            if(!Stack2.empty()) result += '/';
+        while(!dQ.empty()) {
+            result += dQ.front();
+            dQ.pop_front();
+            if(!dQ.empty()) result += '/';
         }
         return result;
     }

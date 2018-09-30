@@ -9,25 +9,41 @@
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        if(!root) return;
-        queue <pair <TreeLinkNode*, int> > Q;
-        Q.push(make_pair(root, 1));
-        pair <TreeLinkNode*, int> node;
-        int prev_level = 0, curr_level;
-        TreeLinkNode *curr = nullptr, *head = nullptr;
-        while(!Q.empty()) {
-            node = Q.front(), Q.pop();
-            curr = node.first, curr_level = node.second;
-            if(curr_level > prev_level) {
-                if(head) head->next = nullptr;
-                head = curr;
-            } else {
-                head->next = curr;
-                head = head->next;
+        while (root) {
+            TreeLinkNode* sentinel = new TreeLinkNode(INT_MIN);
+            TreeLinkNode* currNode = sentinel;
+            while (root) {
+                if (root->left) {
+                    currNode->next = root->left;
+                    currNode = currNode->next;
+                }
+                if (root->right) {
+                    currNode->next = root->right;
+                    currNode = currNode->next;
+                }
+                root = root->next;
             }
-            if(curr->left) Q.push(make_pair(curr->left, curr_level + 1));
-            if(curr->right) Q.push(make_pair(curr->right, curr_level + 1));
-            prev_level = curr_level;
+            root = sentinel->next;
         }
+    }
+};
+
+// using recursion in inorder fashion
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if(!root) return;
+        
+        flatten(root->left);
+        
+        TreeNode* right = root->right;
+        root->right = root->left;
+        root->left = nullptr;
+        while(root->right) {
+            root = root->right;
+        }
+        root->right = right;
+        
+        flatten(right);
     }
 };

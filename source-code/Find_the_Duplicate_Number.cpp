@@ -1,3 +1,18 @@
+// O(n)
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        for(int i = 0; i < nums.size(); i++) {
+            int indx = abs(nums[i]) - 1;
+            if(nums[indx] < 0) {
+                return indx + 1;
+            }
+            nums[indx] = -nums[indx];
+        }
+        return INT_MIN;
+    }
+};
+
 class Solution {
     int countNumbers(vector<int> const& nums, int mid) {
         int cnt = 0;

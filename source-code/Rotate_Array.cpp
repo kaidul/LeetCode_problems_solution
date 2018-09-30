@@ -1,41 +1,41 @@
 class Solution {
 public:
-    // time: O(n), space: O(k)
-    /*
-    void rotate(int nums[], int n, int k) {
-        if(k > n) k %= n;
-        if(k < 1 or n < 2) return;
-        int tmp[k];
-        for(int i =  n - k; i < n; ++i) {
-            tmp[i - n + k] = nums[i];
-        }
-        for(int i = n - k - 1; i >= 0; --i) {
-            nums[i + k] = nums[i];
-        }
-        for(int i = 0; i < k; ++i) {
-            nums[i] = tmp[i];
+
+    // reversal algorithm; time: O(n)
+    void swapRange(vector<int>& nums, int left, int right) {
+        --right;
+        while(left < right) {
+            swap(nums[left], nums[right]);
+            left++, right--;
         }
     }
-    */
+    
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k %= n;
+        swapRange(nums, 0, n - k);
+        swapRange(nums, n - k, n);
+        swapRange(nums, 0, n);
+    }
+};
 
-    // reversal algorithm; time: O(n), no extra space
-    void rotate(int nums[], int n, int k) {
-        if(k > n) k %= n;
-        if(k < 1 or n < 2) return;
-        for(int i = 0, j = n - k - 1; i < j; ++i, --j) {
-            nums[i] = nums[i] ^ nums[j];
-            nums[j] = nums[i] ^ nums[j];
-            nums[i] = nums[i] ^ nums[j];
-        }
-        for(int i = n - k, j = n - 1; i < j; ++i, --j) {
-            nums[i] = nums[i] ^ nums[j];
-            nums[j] = nums[i] ^ nums[j];
-            nums[i] = nums[i] ^ nums[j];
-        }
-        for(int i = 0, j = n - 1; i < j; ++i, --j) {
-            nums[i] = nums[i] ^ nums[j];
-            nums[j] = nums[i] ^ nums[j];
-            nums[i] = nums[i] ^ nums[j];
+
+// shifting
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = (int) nums.size();
+        k %= n;
+        int count = 0;
+        for(int start = 0; count < n; start++) {
+            int currIndx = start;
+            int tmp = nums[currIndx];
+            do {
+                int nextIndx = (currIndx + k) % n;
+                swap(tmp, nums[nextIndx]);
+                currIndx = nextIndx;
+                count++;
+            } while(currIndx != start);
         }
     }
 };

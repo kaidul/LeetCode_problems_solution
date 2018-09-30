@@ -7,9 +7,7 @@ class Solution {
         int i = 1;
         int n = s.length();
         while(i < n) {
-            if(i == (n - 1) / 2) {
-                ++i; // skip
-            } else if(s[len] == s[i]) {
+            if(s[len] == s[i]) {
                 lps[i++] = ++len;
             } else {
                 if(len > 0) {
@@ -25,7 +23,7 @@ class Solution {
 public:
     string shortestPalindrome(string s) {
         if(s.length() <= 1) return s;
-        string reverseS = s;
+        string reverseS = s.substr(0, s.length() - 1);
         reverse(reverseS.begin(), reverseS.end());
         int m = computeLps(s + reverseS);
         if(m >= s.length()) {
@@ -37,7 +35,7 @@ public:
     }
 };
 
-// TLE too. similiar solution is AC in java. Leetcode OJ is such a racist :)
+// using longest palindrome substring
 class Solution {
 public:
     string shortestPalindrome(string s) {
@@ -47,26 +45,35 @@ public:
         int left, right;
         int len;
         for(int i = 0; i < n; ++i) {
-            left = i - 1;
-            right = i + 1;
-            while(left >= 0 and right < n and s[left] == s[right]) {
-                --left;
-                ++right;
-            }
-            len = right - left - 1;
-            if(left < 0 and len > maxLen) {
-                maxLen = len;
+            if(n - i >= i) {
+                left = i - 1;
+                right = i + 1;
+                while(left >= 0 and right < n and s[left] == s[right]) {
+                    --left;
+                    ++right;
+                }
+                len = right - left - 1;
+                if(left < 0 and len > maxLen) {
+                    maxLen = len;
+                }
             }
             
-            left = i;
-            right = i + 1;
-            while(left >= 0 and right < n and s[left] == s[right]) {
-                --left;
-                ++right;
+            if(n - i >= i + 1) {
+                left = i;
+                right = i + 1;
+                while(left >= 0 and right < n and s[left] == s[right]) {
+                    --left;
+                    ++right;
+                }
+                len = right - left - 1;
+                if(left < 0 and len > maxLen) {
+                    maxLen = len;
+                }
             }
-            len = right - left - 1;
-            if(left < 0 and len > maxLen) {
-                maxLen = len;
+            
+            // early prune
+            if(n - i < i) {
+                break;
             }
         }
         string result;
@@ -77,6 +84,7 @@ public:
         return result;
     }
 };
+
 // TLE
 /*
 class Solution {

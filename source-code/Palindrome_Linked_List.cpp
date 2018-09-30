@@ -9,15 +9,15 @@
  // Recursive
 class Solution {
 public:
-    void isPalindrome(ListNode* &head, ListNode* tail, int& i, int j, bool& flag) {
+    void isPalindrome(ListNode* &head, ListNode* tail, int& left, int right, bool& flag) {
         if(!tail or !flag) return;
-        isPalindrome(head, tail->next, i, j + 1, flag);
-        if(i > j) return;
+        isPalindrome(head, tail->next, left, right + 1, flag);
+        if(left >= right) return;
         if(head->val != tail->val) {
             flag = false;
         }
         head = head->next;
-        i++;
+        left++;
     }
     bool isPalindrome(ListNode* head) {
         int i = 0;

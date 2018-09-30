@@ -48,7 +48,7 @@ public:
         }
         // triming , and # from end
         int i = result.size() - 1;
-        for(--i; i >= 0 and result[i] == '#'; --i);
+        for(--i; i >= 0 and (result[i] == '#' or result[i] == ','); --i);
         return result.substr(0, i + 1);
     }
 
