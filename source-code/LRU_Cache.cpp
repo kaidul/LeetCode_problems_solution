@@ -84,7 +84,8 @@ private:
     }
 };
 
-// using C++ list. got RE for memory corruption though :(
+
+// using C++ std::list
 class LRUCache {
 public:
     LRUCache(int capacity) {
@@ -95,27 +96,24 @@ public:
 
     int get(int key) {
         if (table.find(key) != table.end()) {
-            auto node = table[key];
-            pair<int, int> entry = *node;
-            entries.erase(node);
-            entries.push_front(entry);
-            return entry.second;
+            auto entry = table[key];
+            entries.splice(entries.begin(), entries, entry);
+            return entry->second;
         }
         return -1;
     }
 
     void put(int key, int value) {
-        pair<int, int> newEntry = {key, value};
         if (table.find(key) != table.end()) {
-            auto curr = table[key];
-            entries.erase(curr);
+            entries.erase(table[key]);
         } else {
-            if(entries.size() >= capacity) {
+           if(entries.size() >= capacity) {
                 pair<int, int> tailEntry = entries.back();
-                entries.pop_back();
                 table.erase(tailEntry.first);
-            }
+                entries.pop_back();
+            } 
         }
+        pair<int, int> newEntry = {key, value};
         entries.push_front(newEntry);
         table[key] = entries.begin();
     }

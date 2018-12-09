@@ -9,18 +9,17 @@ public:
                 if(nums[i] > nums[i + 1]) {
                     swap(nums[i], nums[i + 1]);
                 }
-                flag ^= 1;
             } else {
                 if(nums[i] < nums[i + 1]) {
                     swap(nums[i], nums[i + 1]);
                 }
-                flag ^= 1;
             }
+            flag ^= 1;
         }
     }
 };
-// with extra space\
-/*
+
+// with extra space
 class Solution {
 public:
     void wiggleSort(vector<int>& nums) {
@@ -41,4 +40,3 @@ public:
         }
     }
 };
-*/

@@ -12,17 +12,15 @@ public:
         }
         for(int i = 0; i < n; ++i) {
             if(!taken[s[i] - 'a']) {
-                while(!Stack.empty() and Stack.top() > s[i] and freq[Stack.top() - 'a'] > 1) {
+                while(!Stack.empty() and Stack.top() > s[i] and freq[Stack.top() - 'a'] > 0) {
                     char rmv = Stack.top();
                     Stack.pop();
                     taken[rmv - 'a'] = false;
-                    freq[rmv - 'a']--;
                 }
                 Stack.push(s[i]);
                 taken[s[i] - 'a'] = true;
-            } else {
-                freq[s[i] - 'a']--;
             }
+            freq[s[i] - 'a']--;
         }
         string result = "";
         result.reserve(Stack.size());

@@ -27,10 +27,9 @@ public:
         for(int i = 0; i < positions.size(); ++i) {
             int x = positions[i].first;
             int y = positions[i].second;
-            if(find(x, y, parent) == WATER) {
-                parent[x][y] = pair<int, int>(x, y);
-                nSet++;
-            }
+            parent[x][y] = pair<int, int>(x, y);
+            nSet++;
+            
             for(int k = 0; k < 4; ++k) {
                 int newX = x + dx[k];
                 int newY = y + dy[k];

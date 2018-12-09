@@ -2,36 +2,24 @@ class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
         vector<string> result;
-        string elem = "";
-        if(nums.size() > 0) {
-            elem = to_string(nums[0]) + "->";
-        }
-
-        for(int i = 1; i < nums.size(); ++i) {
-            bool isRange = false;
-            
-            while(i < nums.size() and (i > 0 and nums[i] == nums[i - 1] + 1)) {
-                ++i;
-                isRange = true;
+        int n = (int)nums.size();
+        for (int left = 0, right = 0; right < n; left++, right++) {
+            while (right + 1 < n and nums[right + 1] == nums[right] + 1) {
+                right++;
             }
-            if(isRange) {
-                elem += to_string(nums[i - 1]);
+            int rangeLength = right - left + 1;
+            string range;
+            if (rangeLength == 1) {
+                range = to_string(nums[left]);
             } else {
-                elem = elem.substr(0, elem.size() - 2);
-                // elem.erase(elem.size() - 3, 2);
+                range = to_string(nums[left]);
+                range += "->";
+                range += to_string(nums[right]);
             }
-            result.push_back(elem);
-
-            if(i < nums.size()) {
-                elem = to_string(nums[i]) + "->";
-            }
-
+            result.push_back(range);
+            left = right;
         }
-
-        if(elem.size() > 0 and elem[elem.size() - 1] == '>') {
-            result.push_back(elem.substr(0, elem.size() - 2));
-        }
-
+        
         return result;
     }
 };
