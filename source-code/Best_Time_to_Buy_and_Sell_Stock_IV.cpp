@@ -1,42 +1,34 @@
-// Memory limit exceeded (the 2D dp array seems too big)
+// MLE for very big k and array size
 class Solution {
-public:
-    int maxProfitUtils(int cnt, int idx, int profit, int k, vector<int>& prices, vector<vector<int>>& dp) {
-        if(cnt > k) {
-            return INT_MAX;
+    int maxProfit(int indx, int stock, int const k, vector<int> const& prices, vector<vector<int>>& dp) {
+        if (indx >= prices.size() - 1) {
+            return 0;
         }
-        if(idx == (int)prices.size() or cnt == k) {
-            return profit;
+        if (stock == k) {
+            return 0;
         }
-        if(dp[idx][cnt] != -1) return dp[idx][cnt];
+        if (dp[indx][stock] != -1) {
+            return dp[indx][stock];
+        }
         
-        int profitUntil, profitUntilPrev;
-        int Min = prices[idx];
-        profitUntilPrev = 0;
-        int ret = 0;
-        
-        ret = max(ret, profit + maxProfitUtils(cnt, idx + 1, 0, k, prices, dp));
-        for(int j = 1; j < (int)prices.size() - idx; ++j) {
-            profitUntil = max(profitUntilPrev, prices[j + idx] - Min);
-            if(prices[j + idx] - Min > 0) {
-                ret = max(ret, profit + maxProfitUtils(cnt + 1, j + idx + 1, profitUntil, k, prices, dp));
-            } else {
-                ret = max(ret, profit + maxProfitUtils(cnt, j + idx + 1, profitUntil, k, prices, dp));
+        int profit = 0;
+        int minPrice = prices[indx];
+        for (int i = indx + 1; i < prices.size(); i++) {
+            if (prices[i] > minPrice) {
+                profit = max(profit, (prices[i] - minPrice) + maxProfit(i, stock + 1, k, prices, dp));    
             }
-            profitUntilPrev = profitUntil;
-            Min = min(Min, prices[j + idx]);
+            minPrice = min(minPrice, prices[i]);
         }
-        return dp[idx][cnt] = ret;
+        
+        return dp[indx][stock] = profit;
     }
     
-    
-    int maxProfit(int k, vector<int> &prices) {
-        int n = (int)prices.size();
-        k = min(k, n / 2);
-        vector< vector<int> > dp(n, vector<int>(k + 1, -1));
-        if(n < 2) return 0;
-        int r = maxProfitUtils(0, 0, 0, k, prices, dp);
-        return r;
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        if (prices.empty()) return 0;
+        k = min(k, (int)prices.size() - 1);
+        vector<vector<int>> dp(prices.size(), vector<int>(k + 1, -1));
+        return maxProfit(0, 0, k, prices, dp);
     }
 };
 

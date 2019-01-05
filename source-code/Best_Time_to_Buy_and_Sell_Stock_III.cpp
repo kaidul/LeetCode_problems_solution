@@ -62,3 +62,36 @@ public:
         return maxProfitUtils(0, 0, 0, profitFrom, prices, dp);
     }
 };
+
+// another dp approach
+class Solution {
+    int maxProfit(int indx, int stock, vector<int> const& prices, vector<vector<int>>& dp) {
+        if (indx >= prices.size() - 1) {
+            return 0;
+        }
+        if (stock == 2) {
+            return 0;
+        }
+        if (dp[indx][stock] != -1) {
+            return dp[indx][stock];
+        }
+        
+        int profit = 0;
+        int minPrice = prices[indx];
+        for (int i = indx + 1; i < prices.size(); i++) {
+            if (prices[i] > minPrice) {
+                profit = max(profit, (prices[i] - minPrice) + maxProfit(i, stock + 1, prices, dp));    
+            }
+            minPrice = min(minPrice, prices[i]);
+        }
+        
+        return dp[indx][stock] = profit;
+    }
+    
+public:
+    int maxProfit(vector<int>& prices) {
+        if (prices.empty()) return 0;
+        vector<vector<int>> dp(prices.size(), vector<int>(3, -1));
+        return maxProfit(0, 0, prices, dp);
+    }
+};
