@@ -1,5 +1,6 @@
-## Solutions to LeetCode Programming Problems (657/657)
+## Solutions to LeetCode Programming Problems
 
+Solutions to all Leetcode programming problems as of 13th January, 2019 (657/657).
 
 1. [01 Matrix](source-code/01_Matrix.cpp)
 2. [132 Pattern](source-code/132_Pattern.cpp)
